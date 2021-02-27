@@ -1,60 +1,38 @@
 <template>
-  <div class="form pt-6">
-    <div class="summary text-red" v-if="$v.form.$error">
-      Form has errors
+  <div class="form-group" :class="{ 'hasError': v.$error }">
+    <label class="mr-2 font-bold text-grey">Email</label>
+    <input type="email" class="input" v-model="email" placeholder="user@yahoo.com" @input="v.$touch()">
+    <div class="text-sm mt-2 text-red" v-if="v.$error">
+      <div v-if="!v.required">Email is required</div>
+      <div v-if="!v.isEmailAvailable">Email is not available (less than 10 char)</div>
+      <div v-if="!v.email">Email is not a properly formatted email address</div>
     </div>
-    <form @submit.prevent="submit">
-      <div class="flex justify-center my-6">
-        <div
-           class="px-4"
-           :class="{ 'hasError': $v.form.name.$error }">
-          <label class="mr-2 font-bold text-grey">Name</label>
-          <input type="text" class="input" v-model="form.name">
-        </div>
-        <div
-          class="px-4"
-          :class="{ 'hasError': $v.form.email.$error }">
-          <label class="mr-2 font-bold text-grey">Email</label>
-          <input type="email" class="input" v-model="form.email">
-        </div>
-      </div>
-      <div class="text-center">
-        <button type="submit" class="button">
-          Submit
-        </button>
-      </div>
-    </form>
   </div>
 </template>
 
 <script>
-import { required, email, minLength } from "vuelidate/lib/validators";
-
 export default {
-  name: "FormComponent",
+  props: {
+    value: {
+      type: String,
+      default: ""
+    },
 
-  data() {
-    return {
-      form: {
-        name: "",
-        email: ""
-      }
-    };
-  },
-
-  validations: {
-    form: {
-      name: { required, min: minLength(10) },
-      email: { required, email }
+    v: {
+      type: Object,
+      required: true
     }
   },
 
-  methods: {
-    submit() {
-      this.$v.form.$touch();
-      if(this.$v.form.$error) return
-      // to form submit after this
-      alert('Form submitted')
+  computed: {
+    email: {
+      get() {
+        return this.value;
+      },
+
+      set(value) {
+        this.$emit("input", value);
+      }
     }
   }
 };

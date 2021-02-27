@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import { required, email } from "vuelidate/lib/validators";
-import { isNameJoe, notGmail, isEmailAvailable } from "@/validators";
+import { required, email , minLength} from "vuelidate/lib/validators";
+import {  isEmailAvailable } from "@/validators";
 import NameComponent from "./NameComponent.vue";
 import EmailComponent from "./EmailComponent.vue";
 
@@ -43,8 +43,8 @@ export default {
 
   validations: {
     form: {
-      name: { required, isJoe: isNameJoe },
-      email: { required, email, notGmail, isEmailAvailable }
+      name: { required, minLength: minLength(2) },
+      email: { required, email, isEmailAvailable }
     }
   },
 
