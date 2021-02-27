@@ -2,6 +2,9 @@
   <div class="hello">
     <Header />
     <div class="container mrgnbtm">
+        <div class="row mrgnbtm">
+            <Users v-if="users.length > 0" :users="users" />
+        </div>
           <div class="row">
             <div class="col-md-8">
                 <CreateUser @createUser="userCreate($event)" />
@@ -11,9 +14,7 @@
             </div>
           </div>
     </div>
-    <div class="row mrgnbtm">
-        <Users v-if="users.length > 0" :users="users" />
-    </div>
+
   </div>
 </template>
 

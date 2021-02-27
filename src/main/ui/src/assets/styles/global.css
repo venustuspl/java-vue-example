@@ -1,6 +1,6 @@
 .header {
     padding: 2%;
-    background-color: rgb(128, 0, 107);
+    background-color: rgb(18, 201, 116);
     font-size: 50px;
     text-align: center;
     width: 100%;
@@ -25,7 +25,7 @@ h1 {
 
 .display-board {
   width: 100%;
-  background-color: rgba(0, 119, 128, 0.719);
+  background-color: rgba(10, 110, 110, 101);
   padding: 5%;
 }
 
