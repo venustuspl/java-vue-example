@@ -6,7 +6,7 @@
     <form @submit.prevent="submit" novalidate>
       <div class="flex justify-center my-6">
         <div class="px-4">
-           <name-component v-model="form.name" :v="$v.form.name"/>
+           <first-name-component v-model="form.firstName" :v="$v.form.firstName"/>
         </div>
         <div class="px-4">
           <email-component v-model="form.email" :v="$v.form.email" />
@@ -22,20 +22,20 @@
 </template>
 
 <script>
-import { required, email , minLength} from "vuelidate/lib/validators";
+import { required, email , minLength, maxLength } from "vuelidate/lib/validators";
 import {  isEmailAvailable } from "@/validators";
-import NameComponent from "./NameComponent.vue";
+import FirstNameComponent from "./FirstNameComponent.vue";
 import EmailComponent from "./EmailComponent.vue";
 
 export default {
   name: "FormComponent",
 
-  components: { NameComponent, EmailComponent },
+  components: { FirstNameComponent, EmailComponent },
 
   data() {
     return {
       form: {
-        name: "",
+        firstName: "",
         email: ""
       }
     };
@@ -43,7 +43,7 @@ export default {
 
   validations: {
     form: {
-      name: { required, minLength: minLength(2) },
+      firstName: { required, minLength: minLength(2), maxLength: maxLength(32) },
       email: { required, email, isEmailAvailable }
     }
   },
