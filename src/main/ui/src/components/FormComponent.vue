@@ -9,6 +9,9 @@
            <first-name-component v-model="form.firstName" :v="$v.form.firstName"/>
         </div>
         <div class="px-4">
+           <last-name-component v-model="form.lastName" :v="$v.form.lastName"/>
+        </div>
+        <div class="px-4">
           <email-component v-model="form.email" :v="$v.form.email" />
         </div>
       </div>
@@ -25,12 +28,13 @@
 import { required, email , minLength, maxLength } from "vuelidate/lib/validators";
 import {  isEmailAvailable } from "@/validators";
 import FirstNameComponent from "./FirstNameComponent.vue";
+import LastNameComponent from "./LastNameComponent.vue";
 import EmailComponent from "./EmailComponent.vue";
 
 export default {
   name: "FormComponent",
 
-  components: { FirstNameComponent, EmailComponent },
+  components: { FirstNameComponent, LastNameComponent, EmailComponent },
 
   data() {
     return {
@@ -44,6 +48,7 @@ export default {
   validations: {
     form: {
       firstName: { required, minLength: minLength(2), maxLength: maxLength(32) },
+      lastName: { required, minLength: minLength(2), maxLength: maxLength(32) },
       email: { required, email, isEmailAvailable }
     }
   },
