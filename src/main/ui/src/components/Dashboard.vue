@@ -12,9 +12,12 @@
             <div class="col-md-4">
                 <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
             </div>
+                    <div class="row mrgnbtm">
+    <FormComponent @createUser="userCreate($event)" />
+                    </div>
           </div>
     </div>
-    <FormComponent/>
+
   </div>
 </template>
 

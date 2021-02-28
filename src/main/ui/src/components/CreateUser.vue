@@ -53,6 +53,7 @@ export default {
           this.lastName = "";
           this.email = "";
       }
+
   }
 }
 </script>

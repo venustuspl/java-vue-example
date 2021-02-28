@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="text-center">
-        <button type="submit" class="button">
+        <button type="button" @click='createUser()'>
           Submit
         </button>
       </div>
@@ -26,7 +26,6 @@
 
 <script>
 import { required, email , minLength, maxLength } from "vuelidate/lib/validators";
-import {  isEmailAvailable } from "@/validators";
 import FirstNameComponent from "./FirstNameComponent.vue";
 import LastNameComponent from "./LastNameComponent.vue";
 import EmailComponent from "./EmailComponent.vue";
@@ -40,6 +39,7 @@ export default {
     return {
       form: {
         firstName: "",
+        lastName: "",
         email: ""
       }
     };
@@ -49,18 +49,26 @@ export default {
     form: {
       firstName: { required, minLength: minLength(2), maxLength: maxLength(32) },
       lastName: { required, minLength: minLength(2), maxLength: maxLength(32) },
-      email: { required, email, isEmailAvailable }
+      email: { required, email }
     }
   },
 
   methods: {
-    submit() {
-      this.$v.form.$touch();
-      // if its still pending or an error is returned do not submit
-      if (this.$v.form.$pending || this.$v.form.$error) return;
-      // to form submit after this
-      alert("Form submitted");
-    }
+      createUser() {
+          console.log(this.form.firstName)
+          const payload = {
+              firstName: this.form.firstName,
+              lastName: this.form.firstName,
+              email: this.form.firstName
+          }
+          this.$emit('createUser', payload)
+
+      },
+      clearForm() {
+          this.firstName = "";
+          this.lastName = "";
+          this.email = "";
+      }
   }
 };
 </script>

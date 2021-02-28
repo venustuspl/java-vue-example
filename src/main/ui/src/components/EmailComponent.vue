@@ -4,7 +4,6 @@
     <input type="email" class="input" v-model="email" placeholder="user@yahoo.com" @input="v.$touch()">
     <div class="text-sm mt-2 text-red" v-if="v.$error">
       <div v-if="!v.required">Email is required</div>
-      <div v-if="!v.isEmailAvailable">Email is not available (less than 10 char)</div>
       <div v-if="!v.email">Email is not a properly formatted email address</div>
     </div>
   </div>
