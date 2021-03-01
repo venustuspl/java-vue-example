@@ -4,7 +4,7 @@
       Form has errors
     </div>
     <form @submit.prevent="submit" novalidate>
-      <div class="flex justify-center my-6">
+      <div class="col-md-7 mrgnbtm">
         <div class="px-4">
            <first-name-component v-model="form.firstName" :v="$v.form.firstName"/>
         </div>
@@ -16,9 +16,7 @@
         </div>
       </div>
       <div class="text-center">
-        <button type="button" @click='createUser()'>
-          Submit
-        </button>
+  <button type="button" @click='createUser()' class="btn btn-danger">Create</button>
       </div>
     </form>
   </div>
