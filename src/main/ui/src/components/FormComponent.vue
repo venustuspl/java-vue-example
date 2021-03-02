@@ -53,11 +53,14 @@ export default {
 
   methods: {
       createUser() {
+          this.$v.form.$touch();
+            // if its still pending or an error is returned do not submit
+          if (this.$v.form.$pending || this.$v.form.$error) return;
           console.log(this.form.firstName)
           const payload = {
               firstName: this.form.firstName,
-              lastName: this.form.firstName,
-              email: this.form.firstName
+              lastName: this.form.lastName,
+              email: this.form.email
           }
           this.$emit('createUser', payload)
 

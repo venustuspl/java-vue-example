@@ -24,7 +24,6 @@ import DisplayBoard from './DisplayBoard.vue'
 import Users from './Users.vue'
 import FormComponent from './FormComponent.vue'
 import { getAllUsers, createUser } from '../services/UserService'
-import {  minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Dashboard',
@@ -40,11 +39,7 @@ export default {
           numberOfUsers: 0
       }
   },
-      validations: {
-        firstName: {
-          minLength: minLength(2)
-        }
-      },
+
   methods: {
     getAllUsers() {
       getAllUsers().then(response => {
