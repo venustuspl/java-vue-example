@@ -2,18 +2,15 @@
   <div class="hello">
     <Header />
     <div class="container mrgnbtm">
-        <div class="row mrgnbtm">
-            <Users v-if="users.length > 0" :users="users" />
-        </div>
           <div class="row">
             <div class="col-md-8">
-                <CreateUser @createUser="userCreate($event)" />
+              <FormComponent @createUser="userCreate($event)" />
             </div>
             <div class="col-md-4">
                 <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
             </div>
                     <div class="row mrgnbtm">
-    <FormComponent @createUser="userCreate($event)" />
+                        <Users v-if="users.length > 0" :users="users" />
                     </div>
           </div>
     </div>
@@ -23,7 +20,6 @@
 
 <script>
 import Header from './Header.vue'
-import CreateUser from './CreateUser.vue'
 import DisplayBoard from './DisplayBoard.vue'
 import Users from './Users.vue'
 import FormComponent from './FormComponent.vue'
@@ -34,7 +30,6 @@ export default {
   name: 'Dashboard',
   components: {
     Header,
-    CreateUser,
     DisplayBoard,
     Users,
     FormComponent
