@@ -1,6 +1,6 @@
 <template>
   <div class="form-group" :class="{ 'hasError': v.$error }">
-    <label class="mr-2 font-bold text-grey">Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <label class="mr-2 font-bold text-grey">Email</label>
     <input type="email" class="input" v-model="email" placeholder="user@yahoo.com" @input="v.$touch()">
     <div class="text-sm mt-2 text-red" v-if="v.$error">
       <div v-if="!v.required">Email is required</div>
