@@ -11,6 +11,8 @@
 .mtj.tmp/
 
 # Package Files #
+*.json
+*.gz
 *.jar
 *.war
 *.nar
