@@ -23,9 +23,9 @@ public class UsersService {
     public Users saveUser(Users users) {
         Optional<Users> user = usersRepository.findByEmail(users.getEmail());
 
-        if (!user.isPresent()) {
-            return usersRepository.save(users);
+        if (user.isPresent()) {
+            throw new IllegalArgumentException("User exists");
         }
-        return null;
+        return usersRepository.save(users);
     }
 }
