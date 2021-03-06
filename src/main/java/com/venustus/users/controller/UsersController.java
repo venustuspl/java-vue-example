@@ -26,13 +26,14 @@ public class UsersController {
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
-    public ResponseEntity<?> saveUser(@RequestBody Users user) {
+    public Object saveUser(@RequestBody Users user) {
         log.info("UsersController:  list users");
         try {
             Users resource = usersService.saveUser(user);
             return ResponseEntity.ok(resource);
         } catch (Exception exception) {
-            return ResponseEntity.ok(user);
+            System.out.println("blad");
+            return new IllegalArgumentException("Błąd zapisu");
         }
     }
 }

@@ -9,6 +9,9 @@
             <div class="col-md-4">
                 <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
             </div>
+           <div class="text">
+           {{saveErrors}}
+           </div>
                     <div class="mx-auto" style="width: 100%;">
                         <Users v-if="users.length > 0" :users="users" />
                     </div>
@@ -36,7 +39,9 @@ export default {
   data() {
       return {
           users: [],
-          numberOfUsers: 0
+          numberOfUsers: 0,
+          saveErrors: 2
+
       }
   },
 
