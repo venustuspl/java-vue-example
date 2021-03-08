@@ -5,6 +5,7 @@ import com.venustus.users.links.UserLinks;
 import com.venustus.users.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +27,19 @@ public class UsersController {
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
-    public Object saveUser(@RequestBody Users user) {
-        log.info("UsersController:  list users");
+    public ResponseEntity<?> saveUser(@RequestBody Users user) {
         try {
+            log.info("UsersController:  save users");
             Users resource = usersService.saveUser(user);
-            return ResponseEntity.ok(resource);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(resource);
         } catch (Exception exception) {
-            System.out.println("blad");
-            return new IllegalArgumentException("Błąd zapisu");
+            System.out.println(exception.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .header(exception.getMessage())
+                    .body(exception.getMessage());
         }
     }
 }

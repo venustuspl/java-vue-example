@@ -40,7 +40,7 @@ export default {
       return {
           users: [],
           numberOfUsers: 0,
-          saveErrors: 2
+          saveErrors: ""
 
       }
   },
@@ -48,19 +48,25 @@ export default {
   methods: {
     getAllUsers() {
       getAllUsers().then(response => {
-        console.log(response)
         this.users = response
         this.numberOfUsers = this.users.length
       })
     },
     userCreate(data) {
-      console.log('data:::', data)
+ this.saveErrors = "";
       data.id = this.numberOfUsers + 1
-      createUser(data).then(response => {
-        console.log(response);
+      createUser(data).then((response) => {
+      console.log(response);
+      console.log("***");
+      console.log(response.header);
+      console.log(response.body);
+      console.log("00");
+      if (response.status == 403) {
+             this.saveErrors = response.body;
+      }
         this.getAllUsers();
-      });
-    }
+             });
+           }
   },
   mounted () {
     this.getAllUsers();
