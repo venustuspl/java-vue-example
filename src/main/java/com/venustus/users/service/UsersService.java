@@ -24,7 +24,7 @@ public class UsersService {
         Optional<Users> user = usersRepository.findByEmail(users.getEmail());
 
         if (user.isPresent()) {
-            throw new IllegalArgumentException("This email address is already being used");
+            throw new IllegalArgumentException("This email address is already being used!");
         }
         return usersRepository.save(users);
     }

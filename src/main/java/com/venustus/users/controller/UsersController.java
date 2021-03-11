@@ -35,13 +35,6 @@ public class UsersController {
                     .status(HttpStatus.CREATED)
                     .body(resource);
         } catch (Exception exception) {
-//            System.out.println(exception.getMessage());
-//            HttpHeaders header = new HttpHeaders();
-//            header.add("exception",exception.getMessage().toString());
-//            return ResponseEntity
-//                    .status(HttpStatus.FORBIDDEN)
-//                    .headers(header)
-//                    .body(exception.getMessage());
             return new ResponseEntity<String>(exception.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
