@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -23,6 +24,13 @@ public class UsersController {
     public ResponseEntity<?> listUsers() {
         log.info("UsersController:  list users");
         List<Users> resource = usersService.getUsers();
+        return ResponseEntity.ok(resource);
+    }
+
+    @GetMapping(path = UserLinks.LIST_USERS_BY_EMAIL)
+    public ResponseEntity<?> listUsersByEmail(@RequestParam String email) {
+        log.info("UsersController:  list users by email");
+        Optional<Users> resource = usersService.getUsersByEmail(email);
         return ResponseEntity.ok(resource);
     }
 

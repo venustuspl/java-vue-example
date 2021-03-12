@@ -20,6 +20,10 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
+    public Optional<Users> getUsersByEmail(String email) {
+        return usersRepository.findByEmail(email);
+    }
+
     public Users saveUser(Users users) {
         Optional<Users> user = usersRepository.findByEmail(users.getEmail());
 
