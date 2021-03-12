@@ -60,14 +60,11 @@ export default {
             this.saveErrors="";
             data.id=this.numberOfUsers + 1
             createUser(data).then((response) => {
-                console.log("***");
+               if (response.status == 403) {
                 response.text().then((text) => {
                     console.log(text);
                     this.saveErrors=text;
                 });
-                console.log("00");
-                if (response.status == 403) {
-                    this.saveErrors=response.body;
                 }
                 this.getAllUsers();
             });
