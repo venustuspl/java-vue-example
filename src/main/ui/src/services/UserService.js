@@ -4,6 +4,12 @@ export async function getAllUsers() {
     return await response.json();
 }
 
+export async function getAllUsersByEmail(data) {
+
+    const response = await fetch('/api/users/email?email=' + data);
+    return await response.json();
+}
+
 export async function createUser(data) {
     const response = await fetch(`/api/user`, {
         method: 'POST',

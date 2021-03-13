@@ -14,6 +14,8 @@
             </div>
 
                     <div class="mx-auto" style="width: 100%;">
+                    <input type="text" class="input" v-model="filterByEmail" placeholder="Filter by email" @input="v.$touch()">
+                         <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter</button>
                         <Users v-if="users.length > 0" :users="users" />
                     </div>
           </div>
@@ -29,6 +31,7 @@ import Users from './Users.vue'
 import FormComponent from './FormComponent.vue'
 import {
     getAllUsers,
+    getAllUsersByEmail,
     createUser
 } from '../services/UserService'
 
@@ -55,6 +58,21 @@ export default {
                 this.users=response
                 this.numberOfUsers=this.users.length
             })
+        },
+
+        getAllUsersByEmail() {
+        if (this.filterByEmail != null){
+            getAllUsersByEmail(this.filterByEmail).then(response => {
+                this.users=response
+                 this.numberOfUsers=this.users.length
+            })
+            }
+            else{
+                        getAllUsers().then(response => {
+                            this.users=response
+                            this.numberOfUsers=this.users.length
+            })
+            }
         },
         userCreate(data) {
             this.saveErrors="";
