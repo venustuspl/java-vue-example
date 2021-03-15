@@ -10,11 +10,11 @@
               <FormComponent @createUser="userCreate($event)" />
             </div>
             <div class="col-md-4">
-                <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
+                         <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
             </div>
 
                     <div class="mx-auto" style="width: 100%;">
-                    <input type="text" class="input" v-model="filterByEmail" placeholder="Filter by email" @input="v.$touch()">
+                    <input type="text" class="input" id="filterByEmail" placeholder="Email">
                          <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter</button>
                         <Users v-if="users.length > 0" :users="users" />
                     </div>
@@ -48,8 +48,7 @@ export default {
             users: [],
             numberOfUsers: 0,
             saveErrors: ""
-
-        }
+          }
     },
 
     methods: {
@@ -61,14 +60,18 @@ export default {
         },
 
         getAllUsersByEmail() {
-        if (this.filterByEmail != null){
-            getAllUsersByEmail(this.filterByEmail).then(response => {
-                this.users=response
-                 this.numberOfUsers=this.users.length
+        var email = document.getElementById("filterByEmail").value;
+        console.log(email);
+        if (email.length > 0){
+            getAllUsersByEmail(email).then(response => {
+                                                             console.log('1');
+                                                                 this.users=response
+                                                                 this.numberOfUsers=this.users.length
             })
             }
             else{
                         getAllUsers().then(response => {
+                        console.log('pusty filtr');
                             this.users=response
                             this.numberOfUsers=this.users.length
             })
@@ -91,4 +94,5 @@ export default {
     mounted() {
         this.getAllUsers();
     }
-} </script>
+}
+ </script>
