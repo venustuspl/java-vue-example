@@ -20,8 +20,14 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public Optional<Users> getUsersByEmail(String email) {
-        return usersRepository.findByEmail(email);
+    public List<Users> getUsersByEmail(String email) {
+        List<Users> usersList = usersRepository.findByPartOfEmail(email);
+
+        if (usersList.isEmpty()) {
+            throw new IllegalArgumentException("This email address is never being used!");
+        }
+
+        return usersList;
     }
 
     public Users saveUser(Users users) {

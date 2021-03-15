@@ -64,16 +64,17 @@ export default {
         console.log(email);
         if (email.length > 0){
             getAllUsersByEmail(email).then(response => {
-                                                             console.log('1');
-                                                                 this.users=response
-                                                                 this.numberOfUsers=this.users.length
+        this.users=response
+                            this.numberOfUsers=this.users.length
+                            console.log(response);
             })
             }
             else{
                         getAllUsers().then(response => {
                         console.log('pusty filtr');
-                            this.users=response
+                            //this.users=response
                             this.numberOfUsers=this.users.length
+                           console.log(response);
             })
             }
         },
