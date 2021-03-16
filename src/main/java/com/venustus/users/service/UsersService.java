@@ -20,8 +20,8 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public List<Users> getUsersByEmail(String email) {
-        List<Users> usersList = usersRepository.findByPartOfEmail(email);
+    public List<Users> getUsersByAnyPartOfEmail(String email) {
+        List<Users> usersList = usersRepository.findByAnyPartOfEmail(email);
 
         if (usersList.isEmpty()) {
             throw new IllegalArgumentException("This email address is never being used!");

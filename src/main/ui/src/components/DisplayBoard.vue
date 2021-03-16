@@ -1,6 +1,6 @@
 <template>
     <div class="display-board">
-        <h4>Users in database</h4>
+        <h4>Number of selected users</h4>
         <div class="number">
         {{numberOfUsers}}
         </div>

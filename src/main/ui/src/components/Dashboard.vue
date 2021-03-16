@@ -24,7 +24,7 @@
   </div>
 </template>
 
-        <script>
+<script>
 import Header from './Header.vue'
 import DisplayBoard from './DisplayBoard.vue'
 import Users from './Users.vue'
@@ -43,50 +43,59 @@ export default {
         Users,
         FormComponent
     },
+
     data() {
         return {
             users: [],
             numberOfUsers: 0,
             saveErrors: ""
-          }
+        }
     },
 
     methods: {
         getAllUsers() {
             getAllUsers().then(response => {
-                this.users=response
-                this.numberOfUsers=this.users.length
+                this.users = response
+                this.numberOfUsers = this.users.length
             })
         },
 
         getAllUsersByEmail() {
-        var email = document.getElementById("filterByEmail").value;
-        console.log(email);
-        if (email.length > 0){
-            getAllUsersByEmail(email).then(response => {
-        this.users=response
-                            this.numberOfUsers=this.users.length
-                            console.log(response);
-            })
-            }
-            else{
-                        getAllUsers().then(response => {
-                        console.log('pusty filtr');
-                            //this.users=response
-                            this.numberOfUsers=this.users.length
-                           console.log(response);
-            })
+            var email = document.getElementById("filterByEmail").value;
+            this.saveErrors = '';
+            this.users = [];
+            this.numberOfUsers = 0;
+            if (email.length > 0) {
+                getAllUsersByEmail(email).then(response => {
+                    if (response.status == 403) {
+                        response.text().then((text) => {
+                            console.log(text);
+                            this.saveErrors = text;
+                        });
+                    } else {
+                        this.users = response
+                        this.numberOfUsers = this.users.length
+                        console.log(response);
+                    }
+                })
+            } else {
+                getAllUsers().then(response => {
+                    console.log('pusty filtr');
+                    //this.users=response
+                    this.numberOfUsers = this.users.length
+                    console.log(response);
+                })
             }
         },
         userCreate(data) {
-            this.saveErrors="";
-            data.id=this.numberOfUsers + 1
+            this.saveErrors = "";
+            data.id = this.numberOfUsers + 1
             createUser(data).then((response) => {
-               if (response.status == 403) {
-                response.text().then((text) => {
-                    console.log(text);
-                    this.saveErrors=text;
-                });
+                if (response.status == 403) {
+                    response.text().then((text) => {
+                        console.log(text);
+                        this.saveErrors = text;
+                    });
                 }
                 this.getAllUsers();
             });

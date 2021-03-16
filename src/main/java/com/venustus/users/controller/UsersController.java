@@ -28,9 +28,13 @@ public class UsersController {
 
     @GetMapping(path = UserLinks.LIST_USERS_BY_EMAIL)
     public ResponseEntity<?> listUsersByEmail(@RequestParam String email) {
-        log.info("UsersController:  list users by email");
-        List<Users> resource = usersService.getUsersByEmail(email);
-        return ResponseEntity.ok(resource);
+        try {
+            log.info("UsersController:  list users by email");
+            List<Users> resource = usersService.getUsersByAnyPartOfEmail(email);
+            return ResponseEntity.ok(resource);
+        } catch (Exception exception) {
+            return new ResponseEntity<String>(exception.getMessage(), HttpStatus.FORBIDDEN);
+        }
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
