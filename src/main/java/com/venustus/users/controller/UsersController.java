@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -47,6 +48,19 @@ public class UsersController {
                     .body(resource);
         } catch (Exception exception) {
             return new ResponseEntity<String>(exception.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @PostMapping(path = UserLinks.DELETE_USER)
+    public ResponseEntity<?> deleteUser(@RequestBody Users user) {
+        try {
+            log.info("UsersController:  delete users");
+            Optional<Users> resource = usersService.deleteUsers(user);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(resource);
+        } catch (Exception exception) {
+            return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NO_CONTENT);
         }
     }
 }

@@ -42,7 +42,7 @@ public class UsersService {
     }
 
     @Transactional
-    public void deleteUsers(Users users) {
-        usersRepository.delete(users);
+    public Optional<Users> deleteUsers(Users users) {
+        return usersRepository.deleteUsers(users);
     }
 }
