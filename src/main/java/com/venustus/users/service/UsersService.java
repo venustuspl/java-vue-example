@@ -3,6 +3,7 @@ package com.venustus.users.service;
 import com.venustus.users.entity.Users;
 import com.venustus.users.repository.UsersRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class UsersService {
         return usersList;
     }
 
+    @Transactional
     public Users saveUser(Users users) {
         Optional<Users> user = usersRepository.findByEmail(users.getEmail());
 
@@ -39,6 +41,7 @@ public class UsersService {
         return usersRepository.save(users);
     }
 
+    @Transactional
     public void deleteUsers(Users users) {
         usersRepository.delete(users);
     }

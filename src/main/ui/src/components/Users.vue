@@ -9,6 +9,7 @@
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Email</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                   <td>{{ item.firstName }}</td>
                   <td>{{ item.lastName }}</td>
                   <td>{{ item.email }}</td>
+                  <td> <button type="button" >Delete</button></td>
               </tr>
             </tbody>
         </table>
