@@ -18,3 +18,12 @@ export async function createUser(data) {
       })
           return await response;
 }
+
+export async function deleteUser(data) {
+    const response = await fetch(`/api/users/'+data+'/delete`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+          return await response;
+}

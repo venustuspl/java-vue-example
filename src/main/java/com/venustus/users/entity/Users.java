@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Data
 public class Users {
-	
 	@Id
 	@Column
     private long id;

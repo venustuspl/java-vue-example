@@ -1,0 +1,2 @@
+- refactor users table name into users
+- make some tests
