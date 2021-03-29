@@ -12,7 +12,6 @@
             <div class="col-md-4">
                          <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
             </div>
-
                     <div class="mx-auto" style="width: 100%;">
                     <input type="text" class="input" id="filterByEmail" placeholder="Email">
                          <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter</button>

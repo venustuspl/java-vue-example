@@ -52,10 +52,10 @@ public class UsersController {
     }
 
     @PostMapping(path = UserLinks.DELETE_USER)
-    public ResponseEntity<?> deleteUser(@RequestBody Users user) {
+    public ResponseEntity<?> deleteUser(@RequestBody Long id) {
         try {
             log.info("UsersController:  delete users");
-            Optional<Users> resource = usersService.deleteUsers(user);
+            Optional<Users> resource = usersService.deleteUsers(id);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resource);

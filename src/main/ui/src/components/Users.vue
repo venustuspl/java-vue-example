@@ -18,7 +18,7 @@
                   <td>{{ item.firstName }}</td>
                   <td>{{ item.lastName }}</td>
                   <td>{{ item.email }}</td>
-                  <td> <button type="button" >Delete</button></td>
+                  <td> <button id="deletebutton" :value="item.id" type="button" @click='deleteUsers()' >Delete</button></td>
               </tr>
             </tbody>
         </table>
@@ -26,9 +26,25 @@
 </template>
 
 <script>
+import {
+    deleteUser
+} from '../services/UserService'
 
-    export default {
+export default {
         name: 'Users',
-        props: ['users']
-     }
+        props: ['users'],
+         methods: {
+
+        deleteUsers() {
+        var userid = document.getElementById("deletebutton").value;
+        console.log(userid);
+            deleteUser(userid).then(response => {
+console.log(response);
+            })
+        }
+ }
+}
+
+
+
 </script>
