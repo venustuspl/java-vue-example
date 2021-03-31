@@ -42,6 +42,7 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody User user) {
         try {
             log.info("UsersController:  save users");
+            System.out.println(user.toString());
             User resource = userService.saveUser(user);
             return ResponseEntity
                     .status(HttpStatus.CREATED)

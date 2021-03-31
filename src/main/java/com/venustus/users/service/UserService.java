@@ -38,6 +38,7 @@ public class UserService {
         if (userToSave.isPresent()) {
             throw new IllegalArgumentException("This email address is already being used!");
         }
+        System.out.println(user.toString());
         return userRepository.save(user);
     }
 
