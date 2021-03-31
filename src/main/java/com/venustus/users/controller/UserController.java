@@ -1,8 +1,8 @@
 package com.venustus.users.controller;
 
-import com.venustus.users.entity.Users;
+import com.venustus.users.entity.User;
 import com.venustus.users.links.UserLinks;
-import com.venustus.users.service.UsersService;
+import com.venustus.users.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,15 +15,15 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/api/")
-public class UsersController {
+public class UserController {
 
     @Autowired
-    UsersService usersService;
+    UserService userService;
 
     @GetMapping(path = UserLinks.LIST_USERS)
     public ResponseEntity<?> listUsers() {
         log.info("UsersController:  list users");
-        List<Users> resource = usersService.getUsers();
+        List<User> resource = userService.getUsers();
         return ResponseEntity.ok(resource);
     }
 
@@ -31,7 +31,7 @@ public class UsersController {
     public ResponseEntity<?> listUsersByEmail(@RequestParam String email) {
         try {
             log.info("UsersController:  list users by email");
-            List<Users> resource = usersService.getUsersByAnyPartOfEmail(email);
+            List<User> resource = userService.getUsersByAnyPartOfEmail(email);
             return ResponseEntity.ok(resource);
         } catch (Exception exception) {
             return new ResponseEntity<String>(exception.getMessage(), HttpStatus.FORBIDDEN);
@@ -39,10 +39,10 @@ public class UsersController {
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
-    public ResponseEntity<?> saveUser(@RequestBody Users user) {
+    public ResponseEntity<?> saveUser(@RequestBody User user) {
         try {
             log.info("UsersController:  save users");
-            Users resource = usersService.saveUser(user);
+            User resource = userService.saveUser(user);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resource);
@@ -55,7 +55,7 @@ public class UsersController {
     public ResponseEntity<?> deleteUser(@RequestBody Long id) {
         try {
             log.info("UsersController:  delete users");
-            Optional<Users> resource = usersService.deleteUsers(id);
+            Optional<User> resource = userService.deleteUsers(id);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resource);

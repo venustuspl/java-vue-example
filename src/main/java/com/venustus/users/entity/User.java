@@ -9,17 +9,17 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
-public class Users {
-	@Id
-	@Column
+public class User {
+    @Id
+    @Column
     private long id;
 
     @Column
-    @NotNull(message="{NotNull.User.firstName}")
+    @NotNull(message = "{NotNull.User.firstName}")
     private String firstName;
-    
+
     @Column
-    @NotNull(message="{NotNull.User.lastName}")
+    @NotNull(message = "{NotNull.User.lastName}")
     private String lastName;
     
     @Column
