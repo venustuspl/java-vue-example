@@ -88,6 +88,8 @@ export default {
         },
         userCreate(data) {
             this.saveErrors = "";
+                        console.log('user data');
+                        console.log(data);
             data.id = this.numberOfUsers + 1
             createUser(data).then((response) => {
                 if (response.status == 403) {

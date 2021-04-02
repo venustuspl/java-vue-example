@@ -43,7 +43,7 @@ public class UserController {
         try {
             log.info("UsersController:  save users");
             System.out.println(user.toString());
-            User resource = userService.saveUser(user);
+            User resource = userService.saveUser(new User(user.getFirstName(), user.getLastName(), user.getEmail()));
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resource);
