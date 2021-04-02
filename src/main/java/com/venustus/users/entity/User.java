@@ -3,7 +3,10 @@ package com.venustus.users.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -12,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class User {
     @Id
     @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
 
     @Column
