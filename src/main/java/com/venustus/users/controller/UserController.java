@@ -55,7 +55,7 @@ public class UserController {
     @PostMapping(path = UserLinks.DELETE_USER)
     public ResponseEntity<?> deleteUser(@RequestBody Long id) {
         try {
-            log.info("UsersController:  delete users");
+            log.info("UsersController:  deleting user id = " + id);
             Optional<User> resource = userService.deleteUsers(id);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
