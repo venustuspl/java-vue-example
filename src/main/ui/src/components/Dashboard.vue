@@ -15,7 +15,7 @@
                     <div class="mx-auto" style="width: 100%;">
                     <input type="text" class="input" id="filterByEmail" placeholder="Email">
                          <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter</button>
-                        <Users v-if="users.length > 0" :users="users" />
+                        <Users v-if="users.length > 0" :users="users" @getAllUsers="getAllUsers()"/>
                     </div>
           </div>
     </div>
@@ -56,7 +56,8 @@ export default {
             getAllUsers().then(response => {
                 this.users = response
                 this.numberOfUsers = this.users.length
-            })
+            });
+            console.log('Users have been displayed');
         },
 
         getAllUsersByEmail() {

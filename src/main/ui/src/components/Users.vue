@@ -36,11 +36,11 @@ export default {
          methods: {
 
         deleteUsers(userid) {
-       // var userid = document.getElementById("itemid").innerHTML;
         console.log(userid);
             deleteUser(userid).then(response => {
 console.log(response);
             });
+this.$emit('getAllUsers')
 
         }
  }
