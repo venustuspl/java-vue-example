@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class UserServiceTestIT {
@@ -34,7 +33,6 @@ class UserServiceTestIT {
         User savedUser = userService.saveUser(user);
         //then
         assertEquals(user.getEmail(), savedUser.getEmail());
-        assertNotNull(savedUser.getId());
     }
 
     private User getUserToSave() {
