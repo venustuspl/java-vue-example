@@ -6,6 +6,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -33,4 +36,14 @@ class UserServiceTest {
         assertThat(throwable).hasMessage("This email address is already being used!");
     }
 
+    @Test
+    void shouldReturnUserWhenSearchIsByAnyPartOfEmail() {
+        //given
+        User testUser = new User("testUser", "testUser", "test@test.pl");
+        when(userRepository.findByAnyPartOfEmail("test")).thenReturn(Collections.singletonList(testUser));
+        //when
+        List<User> users = userService.getUsersByAnyPartOfEmail("test");
+        //then
+        assertThat(users).hasAtLeastOneElementOfType(User.class);
+    }
 }
