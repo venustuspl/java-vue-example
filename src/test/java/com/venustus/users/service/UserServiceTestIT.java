@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -33,6 +34,17 @@ class UserServiceTestIT {
         User savedUser = userService.saveUser(user);
         //then
         assertEquals(user.getEmail(), savedUser.getEmail());
+    }
+
+    @Test
+    void shouldDeleteUserFromDB() {
+        //given
+        User user = getUserToSave();
+        userService.saveUser(user);
+        //when
+        userRepository.deleteAll();
+        //then
+        assertThat(userService.getUsers()).isEmpty();
     }
 
     private User getUserToSave() {
