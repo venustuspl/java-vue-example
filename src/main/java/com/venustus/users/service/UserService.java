@@ -38,12 +38,17 @@ public class UserService {
         if (userToSave.isPresent()) {
             throw new IllegalArgumentException("This email address is already being used!");
         }
-        System.out.println(user.toString());
+        System.out.println(user);
         return userRepository.save(user);
     }
 
     @Transactional
     public Optional<User> deleteUsers(Long id) {
         return userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
     }
 }
