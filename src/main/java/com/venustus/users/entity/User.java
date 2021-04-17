@@ -43,7 +43,7 @@ public class User {
                 @NotNull(message = "{NotNull.User.email}") String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        thi.login = login;
+        this.login = login;
         this.email = email;
     }
 

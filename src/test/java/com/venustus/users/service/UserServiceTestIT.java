@@ -48,6 +48,6 @@ class UserServiceTestIT {
     }
 
     private User getUserToSave() {
-        return new User("testUser", "testUser", "test@test.pl");
+        return new User("testUser", "testUser", "testLogin", "test@test.pl");
     }
 }

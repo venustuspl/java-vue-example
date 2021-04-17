@@ -22,13 +22,13 @@ class UserServiceTest {
     @BeforeEach
     void setUp() {
         userService = new UserService(userRepository);
-        user = new User("test", "test", "test@test.pl");
+        user = new User("test", "test", "test", "test@test.pl");
     }
 
     @Test
     void shouldThrowErrorSavingUserWithExistsId() {
         //given
-        User testUser = new User("testUser", "testUser", "test@test.pl");
+        User testUser = new User("testUser", "testUser", "testLogin", "test@test.pl");
         when(userRepository.findByEmail("test@test.pl")).thenReturn(java.util.Optional.ofNullable(user));
         //when
         Throwable throwable = Assertions.catchThrowable(() -> userService.saveUser(testUser));
@@ -39,7 +39,7 @@ class UserServiceTest {
     @Test
     void shouldReturnUserWhenSearchIsByAnyPartOfEmail() {
         //given
-        User testUser = new User("testUser", "testUser", "test@test.pl");
+        User testUser = new User("testUser", "testUser", "testLogin", "test@test.pl");
         when(userRepository.findByAnyPartOfEmail("test")).thenReturn(Collections.singletonList(testUser));
         //when
         List<User> users = userService.getUsersByAnyPartOfEmail("test");
