@@ -27,22 +27,33 @@ public class User {
     private String lastName;
 
     @Column
+    @NotNull(message = "{NotNull.User.login}")
+    private String login;
+
+    @Column
     @NotNull(message = "{NotNull.User.email}")
     private String email;
 
     public User() {
     }
 
-    public User(@NotNull(message = "{NotNull.User.firstName}") String firstName, @NotNull(message = "{NotNull.User.lastName}") String lastName, @NotNull(message = "{NotNull.User.email}") String email) {
+    public User(@NotNull(message = "{NotNull.User.firstName}") String firstName,
+                @NotNull(message = "{NotNull.User.lastName}") String lastName,
+                @NotNull(message = "{NotNull.User.login}") String login,
+                @NotNull(message = "{NotNull.User.email}") String email) {
         this.firstName = firstName;
         this.lastName = lastName;
+        thi.login = login;
         this.email = email;
     }
 
-    public User(long id, @NotNull(message = "{NotNull.User.firstName}") String firstName, @NotNull(message = "{NotNull.User.lastName}") String lastName, @NotNull(message = "{NotNull.User.email}") String email) {
+    public User(long id, @NotNull(message = "{NotNull.User.firstName}") String firstName, @NotNull(message = "{NotNull.User.lastName}") String lastName,
+                @NotNull(message = "{NotNull.User.login}") String login,
+                @NotNull(message = "{NotNull.User.email}") String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.login = login;
         this.email = email;
     }
 
@@ -52,6 +63,7 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
