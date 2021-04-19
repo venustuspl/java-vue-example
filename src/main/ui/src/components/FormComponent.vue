@@ -11,6 +11,9 @@
         <div class="px-4">
            <last-name-component v-model="form.lastName" :v="$v.form.lastName"/>
         </div>
+                <div class="px-4">
+                  <login-component v-model="form.login" :v="$v.form.login" />
+                </div>
         <div class="px-4">
           <email-component v-model="form.email" :v="$v.form.email" />
         </div>
@@ -26,18 +29,20 @@
 import { required, email , minLength, maxLength } from "vuelidate/lib/validators";
 import FirstNameComponent from "./FirstNameComponent.vue";
 import LastNameComponent from "./LastNameComponent.vue";
+import LoginComponent from "./LoginComponent.vue";
 import EmailComponent from "./EmailComponent.vue";
 
 export default {
   name: "FormComponent",
 
-  components: { FirstNameComponent, LastNameComponent, EmailComponent },
+  components: { FirstNameComponent, LastNameComponent, LoginComponent, EmailComponent },
 
   data() {
     return {
       form: {
         firstName: "",
         lastName: "",
+        login: "",
         email: ""
       }
     };
@@ -47,6 +52,7 @@ export default {
     form: {
       firstName: { required, minLength: minLength(2), maxLength: maxLength(32) },
       lastName: { required, minLength: minLength(2), maxLength: maxLength(32) },
+      login: { required, minLength: minLength(2), maxLength: maxLength(32) },
       email: { required, email }
     }
   },
@@ -60,6 +66,7 @@ export default {
           const payload = {
               firstName: this.form.firstName,
               lastName: this.form.lastName,
+              login: this.form.login,
               email: this.form.email
           }
           this.$emit('createUser', payload)
@@ -68,6 +75,7 @@ export default {
       clearForm() {
           this.firstName = "";
           this.lastName = "";
+          this.login = "";
           this.email = "";
       }
   }
