@@ -8,6 +8,7 @@
                 <th>User Id</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
+                <th>Login</th>
                 <th>Email</th>
                 <th>Delete</th>
             </tr>
@@ -17,6 +18,7 @@
                   <td id="itemid" >{{ item.id }}</td>
                   <td>{{ item.firstName }}</td>
                   <td>{{ item.lastName }}</td>
+                  <td>{{ item.login }}</td>
                   <td>{{ item.email }}</td>
                   <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button></td>
               </tr>
