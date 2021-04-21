@@ -33,10 +33,19 @@ public class UserService {
 
     @Transactional
     public User saveUser(User user) {
-        Optional<User> userToSave = userRepository.findByEmail(user.getEmail());
+        Optional<User> userWithExistsEmail = userRepository.findByEmail(user.getEmail());
+        Optional<User> userWithExistsLogin = userRepository.findByLogin(user.getLogin());
 
-        if (userToSave.isPresent()) {
-            throw new IllegalArgumentException("This email address is already being used!");
+        String exeptionMessage = "";
+
+        if (userWithExistsEmail.isPresent()) {
+            exeptionMessage = "This email address is already being used!";
+        }
+        if (userWithExistsLogin.isPresent()) {
+            exeptionMessage = exeptionMessage + " This login is already being used!";
+        }
+        if (!exeptionMessage.isEmpty()) {
+            throw new IllegalArgumentException(exeptionMessage);
         }
         System.out.println(user);
         return userRepository.save(user);

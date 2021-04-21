@@ -43,11 +43,7 @@ export default {
 console.log(response);
             });
 this.$emit('getAllUsers')
-
         }
  }
 }
-
-
-
 </script>
