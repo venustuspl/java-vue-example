@@ -21,7 +21,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping(path = UserLinks.LIST_USERS)
-    public ResponseEntity<?> listUsers() {
+    public ResponseEntity<List<User>> listUsers() {
         log.info("UsersController:  list users");
         List<User> resource = userService.getUsers();
         return ResponseEntity.ok(resource);
@@ -34,21 +34,20 @@ public class UserController {
             List<User> resource = userService.getUsersByAnyPartOfEmail(email);
             return ResponseEntity.ok(resource);
         } catch (Exception exception) {
-            return new ResponseEntity<String>(exception.getMessage(), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
     public ResponseEntity<?> saveUser(@RequestBody User user) {
         try {
-            log.info("UsersController:  save users");
-            System.out.println(user.toString());
+            log.info("UsersController:  save users" + user.toString());
             User resource = userService.saveUser(new User(user.getFirstName(), user.getLastName(), user.getLogin(), user.getEmail()));
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resource);
         } catch (Exception exception) {
-            return new ResponseEntity<String>(exception.getMessage(), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
 
@@ -61,7 +60,7 @@ public class UserController {
                     .status(HttpStatus.CREATED)
                     .body(resource);
         } catch (Exception exception) {
-            return new ResponseEntity<String>(exception.getMessage(), HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NO_CONTENT);
         }
     }
 }
