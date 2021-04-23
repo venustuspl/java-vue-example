@@ -47,7 +47,6 @@ public class UserService {
         if (!exeptionMessage.isEmpty()) {
             throw new IllegalArgumentException(exeptionMessage);
         }
-        System.out.println(user);
         return userRepository.save(user);
     }
 
