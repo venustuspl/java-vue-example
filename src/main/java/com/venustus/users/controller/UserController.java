@@ -1,5 +1,6 @@
 package com.venustus.users.controller;
 
+import com.venustus.users.dto.UserDto;
 import com.venustus.users.entity.User;
 import com.venustus.users.links.UserLinks;
 import com.venustus.users.service.UserService;
@@ -42,7 +43,7 @@ public class UserController {
     public ResponseEntity<?> saveUser(@RequestBody User user) {
         try {
             log.info("UsersController:  save users" + user.toString());
-            User resource = userService.saveUser(new User(user.getFirstName(), user.getLastName(), user.getLogin(), user.getEmail()));
+            User resource = userService.saveUser(new UserDto(user.getFirstName(), user.getLastName(), user.getLogin(), user.getEmail()));
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resource);

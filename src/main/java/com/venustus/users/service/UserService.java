@@ -1,6 +1,8 @@
 package com.venustus.users.service;
 
+import com.venustus.users.dto.UserDto;
 import com.venustus.users.entity.User;
+import com.venustus.users.mapper.UserMapper;
 import com.venustus.users.repository.UserRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +14,11 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public List<User> getUsers() {
@@ -32,9 +36,9 @@ public class UserService {
     }
 
     @Transactional
-    public User saveUser(User user) {
-        Optional<User> userWithExistsEmail = userRepository.findByEmail(user.getEmail());
-        Optional<User> userWithExistsLogin = userRepository.findByLogin(user.getLogin());
+    public User saveUser(UserDto userDto) {
+        Optional<User> userWithExistsEmail = userRepository.findByEmail(userDto.getEmail());
+        Optional<User> userWithExistsLogin = userRepository.findByLogin(userDto.getLogin());
 
         String exeptionMessage = "";
 
@@ -47,7 +51,7 @@ public class UserService {
         if (!exeptionMessage.isEmpty()) {
             throw new IllegalArgumentException(exeptionMessage);
         }
-        return userRepository.save(user);
+        return userRepository.save(userMapper.mapUserDtoToUser(userDto));
     }
 
     @Transactional
