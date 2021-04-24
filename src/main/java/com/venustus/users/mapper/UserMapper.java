@@ -7,17 +7,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    private final ModelMapper modelMapper;
-
-    public UserMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
+    private static final ModelMapper mapper = new ModelMapper();
 
     public UserDto mapUserToUserDto(User user) {
-        return modelMapper.map(user, UserDto.class);
+        return mapper.map(user, UserDto.class);
     }
 
     public User mapUserDtoToUser(UserDto userDto) {
-        return modelMapper.map(userDto, User.class);
+        return mapper.map(userDto, User.class);
     }
 }

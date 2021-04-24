@@ -40,10 +40,11 @@ public class UserController {
     }
 
     @PostMapping(path = UserLinks.ADD_USER)
-    public ResponseEntity<?> saveUser(@RequestBody User user) {
+    public ResponseEntity<?> saveUser(@RequestBody UserDto userDto) {
         try {
-            log.info("UsersController:  save users" + user.toString());
-            User resource = userService.saveUser(new UserDto(user.getFirstName(), user.getLastName(), user.getLogin(), user.getEmail()));
+            log.info("UsersController:  save users" + userDto.toString());
+            User resource = userService.saveUser(new UserDto(userDto.getFirstName(), userDto.getLastName(), userDto.getLogin(),
+                    userDto.getEmail()));
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(resource);

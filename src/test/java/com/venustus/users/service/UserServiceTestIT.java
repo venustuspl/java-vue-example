@@ -1,5 +1,6 @@
 package com.venustus.users.service;
 
+import com.venustus.users.dto.UserDto;
 import com.venustus.users.entity.User;
 import com.venustus.users.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -28,25 +29,25 @@ class UserServiceTestIT {
     @Test
     void shouldSaveUserInDb() {
         //given
-        User user = getUserToSave();
+        UserDto userDto = getUserDtoToSave();
         //when
-        User savedUser = userService.saveUser(user);
+        User savedUser = userService.saveUser(userDto);
         //then
-        assertEquals(user.getEmail(), savedUser.getEmail());
+        assertEquals(userDto.getEmail(), savedUser.getEmail());
     }
 
     @Test
     void shouldDeleteUserFromDB() {
         //given
-        User user = getUserToSave();
-        userService.saveUser(user);
+        UserDto userDto = getUserDtoToSave();
+        userService.saveUser(userDto);
         //when
         userRepository.deleteAll();
         //then
         assertThat(userService.getUsers()).isEmpty();
     }
 
-    private User getUserToSave() {
-        return new User("testUser", "testUser", "testLogin", "test@test.pl");
+    private UserDto getUserDtoToSave() {
+        return new UserDto("testUser", "testUser", "testLogin", "test@test.pl");
     }
 }
