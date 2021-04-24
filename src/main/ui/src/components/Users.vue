@@ -41,8 +41,10 @@ export default {
         console.log(userid);
             deleteUser(userid).then(response => {
 console.log(response);
+this.$emit('getAllUsers');
+this.$forceUpdate();
             });
-this.$emit('getAllUsers')
+
         }
  }
 }
