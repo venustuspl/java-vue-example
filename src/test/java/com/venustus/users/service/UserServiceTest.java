@@ -16,7 +16,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class UserServiceTest {
-
     private final UserRepository userRepository = mock(UserRepository.class);
     private UserService userService;
     private UserMapper userMapper;
