@@ -19,6 +19,11 @@ public interface UserRepository extends JpaRepository<User, Integer>,
             nativeQuery = true)
     List<User> findByAnyPartOfEmail(String email);
 
+    @Query(value = "select * from users where login like %:login% order by login",
+            countQuery = "select count(*) from users where login like %:login%",
+            nativeQuery = true)
+    List<User> findByAnyPartOfLogin(String login);
+
     Optional<User> findByEmail(String email);
 
     Optional<User> findByLogin(String login);

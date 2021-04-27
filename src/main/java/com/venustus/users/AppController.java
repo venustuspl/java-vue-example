@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 public class AppController {
-	
 	@RequestMapping({"/"})
 	public String loadUI() {
 		log.info("loading UIssdd");
 		return "forward:/index.html";
 	}
-
 }
