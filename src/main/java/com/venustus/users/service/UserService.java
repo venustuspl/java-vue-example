@@ -35,6 +35,16 @@ public class UserService {
         return usersList;
     }
 
+    public List<User> getUsersByAnyPartOfLogin(String login) {
+        List<User> usersList = userRepository.findByAnyPartOfLogin(login);
+
+        if (usersList.isEmpty()) {
+            throw new IllegalArgumentException("This login is never being used!");
+        }
+
+        return usersList;
+    }
+
     @Transactional
     public User saveUser(UserDto userDto) {
         Optional<User> userWithExistsEmail = userRepository.findByEmail(userDto.getEmail());
