@@ -1,4 +1,7 @@
 package com.venustus.users.validator;
 
-public class Validator {
+import java.util.List;
+
+interface Validator {
+    List<String> validate(String input);
 }
