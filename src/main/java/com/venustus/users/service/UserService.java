@@ -4,6 +4,7 @@ import com.venustus.users.dto.UserDto;
 import com.venustus.users.entity.User;
 import com.venustus.users.mapper.UserMapper;
 import com.venustus.users.repository.UserRepository;
+import com.venustus.users.validator.ValidationManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +16,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final ValidationManager validationManager;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository, UserMapper userMapper, ValidationManager validationManager) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.validationManager = validationManager;
     }
 
     public List<User> getUsers() {

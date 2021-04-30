@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-class ForbiddenWordsValidator implements Validator {
+class ForbiddenWordsValidator implements UsersValidator {
 
     List<String> forbiddenWordService = new ArrayList<>(Arrays.asList("kurde", "chuk"));
 

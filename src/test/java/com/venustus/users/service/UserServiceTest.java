@@ -4,6 +4,7 @@ import com.venustus.users.dto.UserDto;
 import com.venustus.users.entity.User;
 import com.venustus.users.mapper.UserMapper;
 import com.venustus.users.repository.UserRepository;
+import com.venustus.users.validator.ValidationManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,13 +18,14 @@ import static org.mockito.Mockito.when;
 
 class UserServiceTest {
     private final UserRepository userRepository = mock(UserRepository.class);
+    private final ValidationManager validationManager = mock(ValidationManager.class);
     private UserService userService;
     private UserMapper userMapper;
     private User user;
 
     @BeforeEach
     void setUp() {
-        userService = new UserService(userRepository, userMapper);
+        userService = new UserService(userRepository, userMapper, validationManager);
         user = new User("test", "test", "test", "test@test.pl");
     }
 
