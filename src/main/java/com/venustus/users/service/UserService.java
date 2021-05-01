@@ -5,6 +5,7 @@ import com.venustus.users.entity.User;
 import com.venustus.users.mapper.UserMapper;
 import com.venustus.users.repository.UserRepository;
 import com.venustus.users.validator.ValidationManager;
+import com.venustus.users.validator.ValidationResult;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +53,13 @@ public class UserService {
     public User saveUser(UserDto userDto) {
         Optional<User> userWithExistsEmail = userRepository.findByEmail(userDto.getEmail());
         Optional<User> userWithExistsLogin = userRepository.findByLogin(userDto.getLogin());
+
+        ValidationResult validationResult = validationManager.validate(userDto.getLogin());
+
+        if (!validationResult.isValid()) {
+            throw new IllegalArgumentException(validationResult.getError().toString());
+        }
+
 
         String exeptionMessage = "";
 
