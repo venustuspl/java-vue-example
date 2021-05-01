@@ -20,7 +20,8 @@ class ForbiddenWordsValidator implements UsersValidator {
                 .collect(Collectors.toList());
 
         if (!errors.isEmpty()) {
-            return Collections.singletonList("Login contains word(s) which are not allowed in our service.");
+            return Collections.singletonList("Login contains word(s) which are not allowed in our service: "
+                    + errors);
         }
         return errors;
     }
