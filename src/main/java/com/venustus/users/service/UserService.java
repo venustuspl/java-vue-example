@@ -9,8 +9,10 @@ import com.venustus.users.validator.ValidationResult;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class UserService {
@@ -54,10 +56,23 @@ public class UserService {
         Optional<User> userWithExistsEmail = userRepository.findByEmail(userDto.getEmail());
         Optional<User> userWithExistsLogin = userRepository.findByLogin(userDto.getLogin());
 
-        ValidationResult validationResult = validationManager.validate(userDto.getLogin());
+        List<ValidationResult> results = new ArrayList<>();
 
-        if (!validationResult.isValid()) {
-            throw new IllegalArgumentException(validationResult.getError().toString());
+        ValidationResult validationFirstNameResult = validationManager.validate(userDto.getFirstName());
+        results.add(validationFirstNameResult);
+        ValidationResult validationLastNameinResult = validationManager.validate(userDto.getLastName());
+        results.add(validationLastNameinResult);
+        ValidationResult validationLoginResult = validationManager.validate(userDto.getLogin());
+        results.add(validationLoginResult);
+
+
+        List<String> mainResult = results.stream()
+                .filter(r -> !r.isValid())
+                .map(r -> r.getError().toString())
+                .collect(Collectors.toList());
+
+        if (!mainResult.isEmpty()) {
+            throw new IllegalArgumentException(mainResult.toString());
         }
 
 
