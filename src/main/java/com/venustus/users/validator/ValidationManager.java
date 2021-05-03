@@ -16,9 +16,7 @@ public class ValidationManager {
     public ValidationResult validate(String input) {
         List<String> errors = new ArrayList<>();
 
-        validators.forEach(validator -> {
-            errors.addAll(validator.validate(input));
-        });
+        validators.forEach(validator -> errors.addAll(validator.validate(input)));
 
         return new ValidationResult(errors.isEmpty(), errors);
     }
