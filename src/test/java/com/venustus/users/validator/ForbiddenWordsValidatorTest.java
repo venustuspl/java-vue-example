@@ -35,6 +35,6 @@ class ForbiddenWordsValidatorTest {
         List<String> list = forbiddenWordsValidator.validate(input);
 
         // then
-        assertThat(list.size()).isEqualTo(0);
+        assertThat(list.size()).isZero();
     }
 }
