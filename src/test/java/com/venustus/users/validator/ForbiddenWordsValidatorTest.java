@@ -26,4 +26,15 @@ class ForbiddenWordsValidatorTest {
         // then
         assertThat(list.size()).isEqualTo(1);
     }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Hello, shit happens, chuck, kuku."})
+    void shouldNotContainForbiddenWord(String input) {
+        // given
+        // when
+        List<String> list = forbiddenWordsValidator.validate(input);
+
+        // then
+        assertThat(list.size()).isEqualTo(0);
+    }
 }
