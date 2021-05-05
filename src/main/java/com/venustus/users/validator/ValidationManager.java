@@ -7,16 +7,16 @@ import java.util.List;
 
 @Component
 public class ValidationManager {
-    private final List<UsersValidator> validators;
+    private final List<UsersValidator> usersValidators;
 
-    public ValidationManager(List<UsersValidator> validators) {
-        this.validators = validators;
+    public ValidationManager(List<UsersValidator> usersValidators) {
+        this.usersValidators = usersValidators;
     }
 
     public ValidationResult validate(String input) {
         List<String> errors = new ArrayList<>();
 
-        validators.forEach(validator -> errors.addAll(validator.validate(input)));
+        usersValidators.forEach(validator -> errors.addAll(validator.validate(input)));
 
         return new ValidationResult(errors.isEmpty(), errors);
     }
