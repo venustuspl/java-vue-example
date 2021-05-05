@@ -22,6 +22,6 @@ class ValidationManagerTest {
         ValidationResult validationResult = validationManager.validate("Text without forbidenn words");
 
         //then
-        assertThat(validationResult.isValid()).isEqualTo(true);
+        assertThat(validationResult.isValid()).isTrue();
     }
 }
