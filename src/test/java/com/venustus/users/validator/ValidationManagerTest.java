@@ -19,9 +19,21 @@ class ValidationManagerTest {
         ValidationManager validationManager = new ValidationManager(usersValidatorList);
 
         //when
-        ValidationResult validationResult = validationManager.validate("Text without forbidenn words");
+        ValidationResult validationResult = validationManager.validate("Text without forbidden words");
 
         //then
         assertThat(validationResult.isValid()).isTrue();
+    }
+
+    @Test
+    void shouldReturnNotEmptyErrorList() {
+        //given
+        ValidationManager validationManager = new ValidationManager(usersValidatorList);
+
+        //when
+        ValidationResult validationResult = validationManager.validate("Text with forbidden words, chuk, kurde.");
+
+        //then
+        assertThat(validationResult.isValid()).isFalse();
     }
 }
