@@ -1,6 +1,7 @@
 package com.venustus.users.validator;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,25 +14,27 @@ class ValidationManagerTest {
     @Autowired
     List<UsersValidator> usersValidatorList;
 
-    @Test
-    void shouldReturnEmptyErrorList() {
+    @ParameterizedTest
+    @ValueSource(strings = {"Hello, shit happens, chuck, kuku."})
+    void shouldReturnEmptyErrorList(String input) {
         //given
         ValidationManager validationManager = new ValidationManager(usersValidatorList);
 
         //when
-        ValidationResult validationResult = validationManager.validate("Text without forbidden words");
+        ValidationResult validationResult = validationManager.validate(input);
 
         //then
         assertThat(validationResult.isValid()).isTrue();
     }
 
-    @Test
-    void shouldReturnNotEmptyErrorList() {
+    @ParameterizedTest
+    @ValueSource(strings = {"Hello, shit happens, chuk, kurde."})
+    void shouldReturnNotEmptyErrorList(String input) {
         //given
         ValidationManager validationManager = new ValidationManager(usersValidatorList);
 
         //when
-        ValidationResult validationResult = validationManager.validate("Text with forbidden words, chuk, kurde.");
+        ValidationResult validationResult = validationManager.validate(input);
 
         //then
         assertThat(validationResult.isValid()).isFalse();
