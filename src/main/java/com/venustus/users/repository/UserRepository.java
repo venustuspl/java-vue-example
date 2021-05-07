@@ -14,13 +14,13 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer>,
         JpaSpecificationExecutor<User>, QuerydslPredicateExecutor<User> {
 
-    @Query(value = "select * from users where email like %:email% order by email",
-            countQuery = "select count(*) from users where email like %:email%",
+    @Query(value = "select * from user where email like %:email% order by email",
+            countQuery = "select count(*) from user where email like %:email%",
             nativeQuery = true)
     List<User> findByAnyPartOfEmail(String email);
 
-    @Query(value = "select * from users where login like %:login% order by login",
-            countQuery = "select count(*) from users where login like %:login%",
+    @Query(value = "select * from user where login like %:login% order by login",
+            countQuery = "select count(*) from user where login like %:login%",
             nativeQuery = true)
     List<User> findByAnyPartOfLogin(String login);
 
