@@ -18,8 +18,10 @@
   <label class="mr-2 font-bold text-grey">User Filters</label>
   <br>
                     <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter Users by part of Email</button>
+                    <button type="button" @click='getAllUsersByLogin()' class="btn btn-danger">Filter Users by part of Login</button>
+
                     <br>
-                    <input type="text" class="input" id="filterByEmail" placeholder="Input text">
+                    <input type="text" class="input" id="filterBy" placeholder="Input text">
                     </div>
                          <Users v-if="users.length > 0" :users="users" @getAllUsers="getAllUsers()"/>
                     </div>
@@ -37,6 +39,7 @@ import FormComponent from './FormComponent.vue'
 import {
     getAllUsers,
     getAllUsersByEmail,
+    getAllUsersByLogin,
     createUser
 } from '../services/UserService'
 
@@ -67,7 +70,7 @@ export default {
         },
 
         getAllUsersByEmail() {
-            var email = document.getElementById("filterByEmail").value;
+            var email = document.getElementById("filterBy").value;
             this.saveErrors = '';
             this.users = [];
             this.numberOfUsers = 0;
@@ -93,6 +96,32 @@ export default {
                 })
             }
         },
+        getAllUsersByLogin() {
+                    var login = document.getElementById("filterBy").value;
+                    this.saveErrors = '';
+                    this.users = [];
+                    this.numberOfUsers = 0;
+                    if (login.length > 0) {
+                        getAllUsersByLogin(login).then(response => {
+                            if (response.status == 403) {
+                                response.text().then((text) => {
+                                    console.log(text);
+                                    this.saveErrors = text;
+                                });
+                            } else {
+                                this.users = response
+                                this.numberOfUsers = this.users.length
+                                console.log(response);
+                            }
+                        })
+                    } else {
+                        getAllUsers().then(response => {
+                            console.log('pusty filtr');
+                            this.numberOfUsers = this.users.length
+                            console.log(response);
+                        })
+                    }
+                },
         userCreate(data) {
             this.saveErrors = "";
                         console.log('user data');

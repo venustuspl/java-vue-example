@@ -39,6 +39,17 @@ public class UserController {
         }
     }
 
+    @GetMapping(path = UserLinks.LIST_USERS_BY_LOGIN)
+    public ResponseEntity<?> listUsersByLogin(@RequestParam String login) {
+        try {
+            log.info("UsersController:  list users by login");
+            List<User> resource = userService.getUsersByAnyPartOfLogin(login);
+            return ResponseEntity.ok(resource);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     @PostMapping(path = UserLinks.ADD_USER)
     public ResponseEntity<?> saveUser(@RequestBody UserDto userDto) {
         try {
