@@ -13,9 +13,15 @@
                          <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
             </div>
                     <div class="mx-auto" style="width: 100%;">
-                    <input type="text" class="input" id="filterByEmail" placeholder="Email">
-                         <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter</button>
-                        <Users v-if="users.length > 0" :users="users" @getAllUsers="getAllUsers()"/>
+  <br>
+  <div class="form-group">
+  <label class="mr-2 font-bold text-grey">User Filters</label>
+  <br>
+                    <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter Users by part of Email</button>
+                    <br>
+                    <input type="text" class="input" id="filterByEmail" placeholder="Input text">
+                    </div>
+                         <Users v-if="users.length > 0" :users="users" @getAllUsers="getAllUsers()"/>
                     </div>
           </div>
     </div>
