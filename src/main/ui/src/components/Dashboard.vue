@@ -27,7 +27,6 @@
                     </div>
           </div>
     </div>
-
   </div>
 </template>
 
@@ -36,6 +35,7 @@ import Header from './Header.vue'
 import DisplayBoard from './DisplayBoard.vue'
 import Users from './Users.vue'
 import FormComponent from './FormComponent.vue'
+
 import {
     getAllUsers,
     getAllUsersByEmail,
@@ -45,13 +45,13 @@ import {
 
 export default {
     name: 'Dashboard',
+
     components: {
         Header,
         DisplayBoard,
         Users,
         FormComponent
     },
-
     data() {
         return {
             users: [],

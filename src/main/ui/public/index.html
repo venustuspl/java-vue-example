@@ -8,10 +8,21 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+  <div id="mapapp">
+    <my-map :markers='[
+        {"lat":35.6432027,"lng":139.6729435},
+        {"lat":35.5279833,"lng":139.6989209},
+        {"lat":35.6563623,"lng":139.7215211},
+        {"lat":35.6167531,"lng":139.5469376},
+        {"lat":35.6950961,"lng":139.5037899}
+      ]'>
+    </my-map>
+  </div>
   </body>
 </html>
