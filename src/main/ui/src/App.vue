@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Dashboard />
+    <MyMap />
   </div>
 </template>
 
@@ -9,11 +10,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import Dashboard from './components/Dashboard.vue'
+import MyMap from './MyMap.vue'
 
 export default {
   name: 'App',
   components: {
-    Dashboard
+    Dashboard,
+    MyMap
   }
 }
 </script>

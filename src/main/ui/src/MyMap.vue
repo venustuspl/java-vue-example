@@ -3,15 +3,13 @@
     <h1>Map</h1>
     <map-loader 
       :map-config="mapConfig"
-      apiKey=""
-    >
+      apiKey="">
       <template v-for="marker in markers">
-        <child-marker :position="marker" />
+        <child-marker :position="marker" :key="marker"/>
       </template>
     </map-loader>
   </div>
 </template>
-
 <script>
 import MapLoader from "./components/MapLoader.vue"
 import ChildMarker from './components/ChildMarker'
