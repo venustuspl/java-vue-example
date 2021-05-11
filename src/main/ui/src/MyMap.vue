@@ -3,16 +3,14 @@
     <h1>Map</h1>
     <map-loader 
       :map-config="mapConfig"
-      apiKey="">
-      <template v-for="marker in markers">
-        <child-marker :position="marker" :key="marker"/>
-      </template>
+      apiKey="AIzaSyDa-AkHL-hoDu1O-hkDyYp027RErzli3MA">
+
     </map-loader>
   </div>
 </template>
 <script>
 import MapLoader from "./components/MapLoader.vue"
-import ChildMarker from './components/ChildMarker'
+
 
 export default {
   props: {
@@ -21,14 +19,13 @@ export default {
   data(){
     return {
       mapConfig: {
-        zoom: 12,
-        center: this.markers[0]
+      center: {lat: 52.237049, lng: 21.017532},
+                        zoom: 12
       }
     }
   },
   components: {
-    MapLoader,
-    ChildMarker
+    MapLoader
   }
 }
 </script>
