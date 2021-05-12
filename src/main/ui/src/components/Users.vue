@@ -3,14 +3,15 @@
         <h2>Users</h2>
 
         <table class="table table-bordered">
+<caption>/caption>
             <thead>
             <tr>
-                <th>User Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Login</th>
-                <th>Email</th>
-                <th>Delete</th>
+                <th id="userid"> User Id</th>
+                <th id="firstname">Firstname</th>
+                <th id="lastname">Lastname</th>
+                <th id="login">Login</th>
+                <th id="email">Email</th>
+                <th id="delete">Delete</th>
             </tr>
             </thead>
             <tbody>
