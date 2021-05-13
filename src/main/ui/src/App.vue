@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Dashboard />
-    <MyMap />
+     <Dashboard />
+     <MyMap />
   </div>
 </template>
 

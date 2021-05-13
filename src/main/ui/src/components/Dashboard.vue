@@ -13,6 +13,7 @@
                          <DisplayBoard :numberOfUsers="numberOfUsers" @getAllUsers="getAllUsers()" />
             </div>
                     <div class="mx-auto" style="width: 100%;">
+                    <br>
   <br>
   <div class="form-group">
   <label class="mr-2 font-bold text-grey">User Filters</label>
@@ -20,13 +21,16 @@
                     <button type="button" @click='getAllUsersByEmail()' class="btn btn-danger">Filter Users by part of Email</button>
                     <button type="button" @click='getAllUsersByLogin()' class="btn btn-danger">Filter Users by part of Login</button>
 
-                    <br>
                     <input type="text" class="input" id="filterBy" placeholder="Input text">
-                    </div>
-                         <Users v-if="users.length > 0" :users="users" @getAllUsers="getAllUsers()"/>
-                    </div>
+
           </div>
+
+
     </div>
+    </div>
+                             <Users v-if="users.length > 0" :users="users" @getAllUsers="getAllUsers()"/>
+                        </div>
+    <hr>
   </div>
 </template>
 

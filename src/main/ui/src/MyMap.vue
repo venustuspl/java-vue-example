@@ -4,7 +4,6 @@
     <map-loader 
       :map-config="mapConfig"
       apiKey="AIzaSyDa-AkHL-hoDu1O-hkDyYp027RErzli3MA">
-
     </map-loader>
   </div>
 </template>
