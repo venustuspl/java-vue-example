@@ -21,7 +21,9 @@
                   <td>{{ item.lastName }}</td>
                   <td>{{ item.login }}</td>
                   <td>{{ item.email }}</td>
-                  <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button></td>
+                  <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button>
+                  <button id="updatebutton" type="button" @click=''>Update</button>
+                  </td>
               </tr>
             </tbody>
         </table>
