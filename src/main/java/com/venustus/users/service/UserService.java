@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -88,6 +89,57 @@ public class UserService {
             throw new IllegalArgumentException(exeptionMessage);
         }
         return userRepository.save(userMapper.mapUserDtoToUser(userDto));
+    }
+
+    @Transactional
+    public User updateUser(UserDto userDto) {
+        Long userForUpdateId = userDto.getId();
+
+        User userForUpdate = userRepository.findById((int) userDto.getId())
+                .orElseThrow(() ->
+                        new NoSuchElementException("The user with id " + userForUpdateId + " does not exist in DB")
+                );
+
+        Optional<User> userWithExistsEmail = userRepository.findByEmail(userDto.getEmail());
+        Optional<User> userWithExistsLogin = userRepository.findByLogin(userDto.getLogin());
+
+        List<ValidationResult> results = new ArrayList<>();
+
+        ValidationResult validationFirstNameResult = validationManager.validate(userDto.getFirstName());
+        results.add(validationFirstNameResult);
+        ValidationResult validationLastNameinResult = validationManager.validate(userDto.getLastName());
+        results.add(validationLastNameinResult);
+        ValidationResult validationLoginResult = validationManager.validate(userDto.getLogin());
+        results.add(validationLoginResult);
+
+        List<String> mainResult = results.stream()
+                .filter(r -> !r.isValid())
+                .map(r -> r.getError().toString())
+                .collect(Collectors.toList());
+
+        if (!mainResult.isEmpty()) {
+            throw new IllegalArgumentException(mainResult.toString());
+        }
+
+
+        String exeptionMessage = "";
+
+        if (userWithExistsEmail.isPresent()) {
+            exeptionMessage = "This email address is already being used!";
+        }
+        if (userWithExistsLogin.isPresent()) {
+            exeptionMessage = exeptionMessage + " This login is already being used!";
+        }
+        if (!exeptionMessage.isEmpty()) {
+            throw new IllegalArgumentException(exeptionMessage);
+        }
+
+        userForUpdate.setFirstName(userDto.getFirstName());
+        userForUpdate.setLastName(userDto.getLastName());
+        userForUpdate.setLogin(userDto.getLogin());
+        userForUpdate.setEmail(userDto.getEmail());
+
+        return userForUpdate;
     }
 
     @Transactional

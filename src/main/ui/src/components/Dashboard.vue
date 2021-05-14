@@ -140,7 +140,21 @@ export default {
                 }
                 this.getAllUsers();
             });
-        }
+        },
+        userUpdate(data) {
+                    this.saveErrors = "";
+                                console.log('user data');
+                                console.log(data);
+                    updateUser(data).then((response) => {
+                        if (response.status == 403) {
+                            response.text().then((text) => {
+                                console.log(text);
+                                this.saveErrors = text;
+                            });
+                        }
+                        this.getAllUsers();
+                    });
+                }
     },
     mounted() {
         this.getAllUsers();

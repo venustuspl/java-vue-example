@@ -64,6 +64,20 @@ public class UserController {
         }
     }
 
+    @PutMapping(path = UserLinks.UPDATE_USER)
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
+        try {
+            log.info("UsersController:  update user" + userDto.toString());
+            User resource = userService.updateUser(new UserDto(userDto.getId(), userDto.getFirstName(), userDto.getLastName(), userDto.getLogin(),
+                    userDto.getEmail()));
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(resource);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
+        }
+    }
+
     @PostMapping(path = UserLinks.DELETE_USER)
     public ResponseEntity<?> deleteUser(@RequestBody Long id) {
         try {

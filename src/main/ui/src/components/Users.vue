@@ -22,7 +22,7 @@
                   <td>{{ item.login }}</td>
                   <td>{{ item.email }}</td>
                   <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button>
-                  <button id="updatebutton" type="button" @click=''>Update</button>
+                  <button id="updatebutton" type="button" @click='updateUsers(item.id)'>Update</button>
                   </td>
               </tr>
             </tbody>
@@ -32,6 +32,7 @@
 
 <script>
 import {
+    updateUser,
     deleteUser
 } from '../services/UserService'
 
@@ -39,7 +40,14 @@ export default {
         name: 'Users',
         props: ['users'],
          methods: {
-
+updateUsers(userid) {
+        console.log(userid);
+            updateUser(userid).then(response => {
+console.log(response);
+this.$emit('getAllUsers');
+this.$forceUpdate();
+            });
+        },
         deleteUsers(userid) {
         console.log(userid);
             deleteUser(userid).then(response => {
@@ -47,7 +55,6 @@ console.log(response);
 this.$emit('getAllUsers');
 this.$forceUpdate();
             });
-
         }
  }
 }
