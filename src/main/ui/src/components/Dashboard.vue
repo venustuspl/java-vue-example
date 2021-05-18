@@ -44,7 +44,8 @@ import {
     getAllUsers,
     getAllUsersByEmail,
     getAllUsersByLogin,
-    createUser
+    createUser,
+    updateUser
 } from '../services/UserService'
 
 export default {

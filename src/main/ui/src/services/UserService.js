@@ -23,7 +23,7 @@ export async function createUser(data) {
 }
 
 export async function updateUser(data) {
-    const response = await fetch(`/api/user/'+data+'/update``, {
+    const response = await fetch(`/api/user/'+data+'/update`, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(data)
