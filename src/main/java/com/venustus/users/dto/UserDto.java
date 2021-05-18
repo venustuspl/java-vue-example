@@ -18,14 +18,6 @@ public class UserDto {
 
     private String email;
 
-    public UserDto(long id, String firstName, String lastName, String login, String email) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.login = login;
-        this.email = email;
-    }
-
     public UserDto(String firstName, String lastName, String login, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
