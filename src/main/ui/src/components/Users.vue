@@ -20,7 +20,7 @@
                   <td><input type="text" class="input" v-model="firstName" :placeholder=item.firstName @input="v.$touch()"></td>
                   <td><input type="text" class="input" v-model="lastName" :placeholder=item.lastName @input="v.$touch()"></td>
                   <td><input type="text" class="input" v-model="login" :placeholder=item.login @input="v.$touch()"></td>
-                  <td><input type="text" class="input" v-model="email" :placeholder=item.firstName @input="v.$touch()"> </td>
+                  <td><input type="text" class="input" v-model="email" :placeholder=item.email @input="v.$touch()"> </td>
                   <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button>
                   <button id="updatebutton" type="button" @click='updateUsers(item.id)'>Update</button>
                   </td>
