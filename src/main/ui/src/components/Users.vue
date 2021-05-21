@@ -18,13 +18,13 @@
 
               <tr v-for="item in users" :key="item.id">
 
-                  <td id="itemid" >{{ item.id }}</td>
-                  <td><input type="text" class="input" v-model="firstName" :placeholder=item.firstName @input="v.$touch()"></td>
+                  <td id="itemid" ><input type="text" disabled="disabled" v-model="userid" :placeholder=item.id @input="v.$touch()"></td>
+                  <td><input type="text" class="input" v-model="firstName" :placeholder=item.firstName  ></td>
                   <td><input type="text" class="input" v-model="lastName" :placeholder=item.lastName @input="v.$touch()"></td>
-                  <td><input type="text" class="input" v-model="login" :placeholder=item.login @input="v.$touch()"></td>
-                  <td><input type="text" class="input" v-model="email" :placeholder=item.email @input="v.$touch()"> </td>
+                  <td><input type="text" class="input" v-model="login" :placeholder=item.login ></td>
+                  <td><input type="text" class="input" v-model="email" :placeholder=item.email > </td>
                   <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button>
-                  <button id="updatebutton" type="button" @click='updateUsers()'>Update</button>
+                  <button id="updatebutton" type="button" @click='updateUsers(item.id,item.firstName,item.lastName,item.login,item.email)'>Update</button>
                   </td>
 
               </tr>
@@ -44,7 +44,15 @@ import {
 
 export default {
         name: 'Users',
-
+data(){
+  return {
+    userid:"",
+   firstName:"",
+   lastName:"",
+   login:"",
+   email:""
+ }
+},
          props: {
                  value: {
                        type: String,
@@ -57,52 +65,11 @@ export default {
                      },
          users:{}
           },
-          computed: {
-          firstName: {
-                          get() {
-                            return this.value;
-                          },
-
-                          set(value) {
-                            this.$emit("input", value);
-                          }
-                        },
-          lastName: {
-                          get() {
-                            return this.value;
-                          },
-
-                          set(value) {
-                            this.$emit("input", value);
-                          }
-                        },
-              login: {
-                get() {
-                  return this.value;
-                },
-
-                set(value) {
-                  this.$emit("input", value);
-                }
-              },
-              email: {
-                              get() {
-                                return this.value;
-                              },
-
-                              set(value) {
-                                this.$emit("input", value);
-                              }
-
-            }
-            },
-         methods: {
-updateUsers() {
-          this.$v.$touch();
-            // if its still pending or an error is returned do not submit
-          if (this.$v.$pending || this.$v.$error) return;
+          methods: {
+updateUsers(userid) {
           console.log(this.firstName)
-          const payload = {
+           const payload = {
+          id: userid,
               firstName: this.firstName,
               lastName: this.lastName,
               login: this.login,

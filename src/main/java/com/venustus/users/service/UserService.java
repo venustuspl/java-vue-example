@@ -95,7 +95,7 @@ public class UserService {
     public User updateUser(UserDto userDto) {
         Long userForUpdateId = userDto.getId();
 
-        User userForUpdate = userRepository.findById((int) userDto.getId())
+        User userForUpdate = (User) userRepository.findById(userDto.getId())
                 .orElseThrow(() ->
                         new NoSuchElementException("The user with id " + userForUpdateId + " does not exist in DB")
                 );
@@ -124,10 +124,10 @@ public class UserService {
 
         String exeptionMessage = "";
 
-        if (userWithExistsEmail.isPresent()) {
+        if (userWithExistsEmail.isPresent() && !userForUpdate.getEmail().equals(userDto.getEmail())) {
             exeptionMessage = "This email address is already being used!";
         }
-        if (userWithExistsLogin.isPresent()) {
+        if (userWithExistsLogin.isPresent() && !userForUpdate.getLogin().equals(userDto.getLogin())) {
             exeptionMessage = exeptionMessage + " This login is already being used!";
         }
         if (!exeptionMessage.isEmpty()) {
