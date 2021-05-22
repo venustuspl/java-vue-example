@@ -134,10 +134,18 @@ public class UserService {
             throw new IllegalArgumentException(exeptionMessage);
         }
 
-        userForUpdate.setFirstName(userDto.getFirstName());
-        userForUpdate.setLastName(userDto.getLastName());
-        userForUpdate.setLogin(userDto.getLogin());
-        userForUpdate.setEmail(userDto.getEmail());
+        if (!userDto.getFirstName().isEmpty()) {
+            userForUpdate.setFirstName(userDto.getFirstName());
+        }
+        if (!userDto.getLastName().isEmpty()) {
+            userForUpdate.setLastName(userDto.getLastName());
+        }
+        if (!userDto.getLogin().isEmpty()) {
+            userForUpdate.setLogin(userDto.getLogin());
+        }
+        if (!userDto.getEmail().isEmpty()) {
+            userForUpdate.setEmail(userDto.getEmail());
+        }
 
         return userForUpdate;
     }

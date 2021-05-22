@@ -20,11 +20,11 @@
 
                   <td id="itemid" ><input type="text" disabled="disabled" v-model="userid" :placeholder=item.id @input="v.$touch()"></td>
                   <td><input type="text" class="input" v-model="firstName" :placeholder=item.firstName  ></td>
-                  <td><input type="text" class="input" v-model="lastName" :placeholder=item.lastName @input="v.$touch()"></td>
+                  <td><input type="text" class="input" v-model="lastName" :placeholder=item.lastName ></td>
                   <td><input type="text" class="input" v-model="login" :placeholder=item.login ></td>
                   <td><input type="text" class="input" v-model="email" :placeholder=item.email > </td>
                   <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button>
-                  <button id="updatebutton" type="button" @click='updateUsers(item.id,item.firstName,item.lastName,item.login,item.email)'>Update</button>
+                  <button id="updatebutton" type="button" @click='updateUsers(item.id)'>Update</button>
                   </td>
 
               </tr>
