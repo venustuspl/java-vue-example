@@ -54,18 +54,22 @@ public class UserService {
 
     @Transactional
     public User saveUser(UserDto userDto) {
-        Optional<User> userWithExistsEmail = userRepository.findByEmail(userDto.getEmail());
-        Optional<User> userWithExistsLogin = userRepository.findByLogin(userDto.getLogin());
-
+        String exeptionMessage = "";
         List<ValidationResult> results = new ArrayList<>();
 
-        ValidationResult validationFirstNameResult = validationManager.validate(userDto.getFirstName());
-        results.add(validationFirstNameResult);
-        ValidationResult validationLastNameinResult = validationManager.validate(userDto.getLastName());
-        results.add(validationLastNameinResult);
-        ValidationResult validationLoginResult = validationManager.validate(userDto.getLogin());
-        results.add(validationLoginResult);
+        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
+            exeptionMessage = "This email address is already being used!";
+        }
+        if (userRepository.findByLogin(userDto.getLogin()).isPresent()) {
+            exeptionMessage = exeptionMessage + " This login is already being used!";
+        }
+        if (!exeptionMessage.isEmpty()) {
+            throw new IllegalArgumentException(exeptionMessage);
+        }
 
+        results.add(validationManager.validate(userDto.getFirstName()));
+        results.add(validationManager.validate(userDto.getLastName()));
+        results.add(validationManager.validate(userDto.getLogin()));
 
         List<String> mainResult = results.stream()
                 .filter(r -> !r.isValid())
@@ -76,18 +80,6 @@ public class UserService {
             throw new IllegalArgumentException(mainResult.toString());
         }
 
-
-        String exeptionMessage = "";
-
-        if (userWithExistsEmail.isPresent()) {
-            exeptionMessage = "This email address is already being used!";
-        }
-        if (userWithExistsLogin.isPresent()) {
-            exeptionMessage = exeptionMessage + " This login is already being used!";
-        }
-        if (!exeptionMessage.isEmpty()) {
-            throw new IllegalArgumentException(exeptionMessage);
-        }
         return userRepository.save(userMapper.mapUserDtoToUser(userDto));
     }
 
