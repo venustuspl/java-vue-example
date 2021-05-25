@@ -85,24 +85,18 @@ public class UserService {
 
     @Transactional
     public User updateUser(UserDto userDto) {
+        String exeptionMessage = "";
         Long userForUpdateId = userDto.getId();
+        List<ValidationResult> results = new ArrayList<>();
 
-        User userForUpdate = (User) userRepository.findById(userDto.getId())
+        User userForUpdate = userRepository.findById(userDto.getId())
                 .orElseThrow(() ->
                         new NoSuchElementException("The user with id " + userForUpdateId + " does not exist in DB")
                 );
 
-        Optional<User> userWithExistsEmail = userRepository.findByEmail(userDto.getEmail());
-        Optional<User> userWithExistsLogin = userRepository.findByLogin(userDto.getLogin());
-
-        List<ValidationResult> results = new ArrayList<>();
-
-        ValidationResult validationFirstNameResult = validationManager.validate(userDto.getFirstName());
-        results.add(validationFirstNameResult);
-        ValidationResult validationLastNameinResult = validationManager.validate(userDto.getLastName());
-        results.add(validationLastNameinResult);
-        ValidationResult validationLoginResult = validationManager.validate(userDto.getLogin());
-        results.add(validationLoginResult);
+        results.add(validationManager.validate(userDto.getFirstName()));
+        results.add(validationManager.validate(userDto.getLastName()));
+        results.add(validationManager.validate(userDto.getLogin()));
 
         List<String> mainResult = results.stream()
                 .filter(r -> !r.isValid())
@@ -113,13 +107,10 @@ public class UserService {
             throw new IllegalArgumentException(mainResult.toString());
         }
 
-
-        String exeptionMessage = "";
-
-        if (userWithExistsEmail.isPresent() && !userForUpdate.getEmail().equals(userDto.getEmail())) {
+        if (userRepository.findByEmail(userDto.getEmail()).isPresent() && !userForUpdate.getEmail().equals(userDto.getEmail())) {
             exeptionMessage = "This email address is already being used!";
         }
-        if (userWithExistsLogin.isPresent() && !userForUpdate.getLogin().equals(userDto.getLogin())) {
+        if (userRepository.findByLogin(userDto.getLogin()).isPresent() && !userForUpdate.getLogin().equals(userDto.getLogin())) {
             exeptionMessage = exeptionMessage + " This login is already being used!";
         }
         if (!exeptionMessage.isEmpty()) {
