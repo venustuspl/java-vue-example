@@ -4,28 +4,25 @@ import com.venustus.users.dto.UserDto;
 import com.venustus.users.entity.User;
 import com.venustus.users.mapper.UserMapper;
 import com.venustus.users.repository.UserRepository;
-import com.venustus.users.validator.ValidationManager;
-import com.venustus.users.validator.ValidationResult;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final ValidationManager validationManager;
+    private final UserServiceValidator userServiceValidator;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, ValidationManager validationManager) {
+    public UserService(UserRepository userRepository, UserMapper userMapper,
+                       UserServiceValidator userServiceValidator) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
-        this.validationManager = validationManager;
+        this.userServiceValidator = userServiceValidator;
     }
 
     public List<User> getUsers() {
@@ -55,8 +52,6 @@ public class UserService {
     @Transactional
     public User saveUser(UserDto userDto) {
         String exeptionMessage = "";
-        List<ValidationResult> results = new ArrayList<>();
-
         if (userRepository.findByEmail(userDto.getEmail()).isPresent()) {
             exeptionMessage = "This email address is already being used!";
         }
@@ -67,18 +62,7 @@ public class UserService {
             throw new IllegalArgumentException(exeptionMessage);
         }
 
-        results.add(validationManager.validate(userDto.getFirstName()));
-        results.add(validationManager.validate(userDto.getLastName()));
-        results.add(validationManager.validate(userDto.getLogin()));
-
-        List<String> mainResult = results.stream()
-                .filter(r -> !r.isValid())
-                .map(r -> r.getError().toString())
-                .collect(Collectors.toList());
-
-        if (!mainResult.isEmpty()) {
-            throw new IllegalArgumentException(mainResult.toString());
-        }
+        userServiceValidator.validateUserDto(userDto);
 
         return userRepository.save(userMapper.mapUserDtoToUser(userDto));
     }
@@ -87,25 +71,13 @@ public class UserService {
     public User updateUser(UserDto userDto) {
         String exeptionMessage = "";
         Long userForUpdateId = userDto.getId();
-        List<ValidationResult> results = new ArrayList<>();
 
         User userForUpdate = userRepository.findById(userDto.getId())
                 .orElseThrow(() ->
                         new NoSuchElementException("The user with id " + userForUpdateId + " does not exist in DB")
                 );
 
-        results.add(validationManager.validate(userDto.getFirstName()));
-        results.add(validationManager.validate(userDto.getLastName()));
-        results.add(validationManager.validate(userDto.getLogin()));
-
-        List<String> mainResult = results.stream()
-                .filter(r -> !r.isValid())
-                .map(r -> r.getError().toString())
-                .collect(Collectors.toList());
-
-        if (!mainResult.isEmpty()) {
-            throw new IllegalArgumentException(mainResult.toString());
-        }
+        userServiceValidator.validateUserDto(userDto);
 
         if (userRepository.findByEmail(userDto.getEmail()).isPresent() && !userForUpdate.getEmail().equals(userDto.getEmail())) {
             exeptionMessage = "This email address is already being used!";
