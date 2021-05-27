@@ -3,11 +3,13 @@ package com.venustus.users.service;
 import com.venustus.users.dto.UserDto;
 import com.venustus.users.validator.ValidationManager;
 import com.venustus.users.validator.ValidationResult;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class UserServiceValidator {
     private final ValidationManager validationManager;
 
