@@ -75,12 +75,15 @@ updateUsers(userid) {
               login: this.login,
               email: this.email
           }
-        console.log(payload);
+        console.log('start');
             updateUser(payload).then(response => {
 console.log(response);
 this.$emit('getAllUsers');
-this.$forceUpdate();
+
             });
+            this.$emit('getAllUsers');
+window.location.reload(true);
+            console.log('end');
         },
         deleteUsers(userid) {
         console.log(userid);

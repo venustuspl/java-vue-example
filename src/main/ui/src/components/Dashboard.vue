@@ -155,10 +155,13 @@ export default {
                         }
                         this.getAllUsers();
                     });
+
+
                 }
     },
     mounted() {
         this.getAllUsers();
+
     }
 }
  </script>
