@@ -67,6 +67,31 @@ public class UserService {
         return userRepository.save(userMapper.mapUserDtoToUser(userDto));
     }
 
+    public static void setEmptyFieldOfUserForUpdate(User userForUpdate, UserDto userDto) {
+        if (!userDto.getFirstName().isEmpty()) {
+            userForUpdate.setFirstName(userDto.getFirstName());
+        }
+        if (!userDto.getLastName().isEmpty()) {
+            userForUpdate.setLastName(userDto.getLastName());
+        }
+        if (!userDto.getLogin().isEmpty()) {
+            userForUpdate.setLogin(userDto.getLogin());
+        }
+        if (!userDto.getEmail().isEmpty()) {
+            userForUpdate.setEmail(userDto.getEmail());
+        }
+    }
+
+    @Transactional
+    public Optional<User> deleteUsers(Long id) {
+        return userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteAllUsers() {
+        userRepository.deleteAll();
+    }
+
     @Transactional
     public User updateUser(UserDto userDto) {
         String exeptionMessage = "";
@@ -89,29 +114,8 @@ public class UserService {
             throw new IllegalArgumentException(exeptionMessage);
         }
 
-        if (!userDto.getFirstName().isEmpty()) {
-            userForUpdate.setFirstName(userDto.getFirstName());
-        }
-        if (!userDto.getLastName().isEmpty()) {
-            userForUpdate.setLastName(userDto.getLastName());
-        }
-        if (!userDto.getLogin().isEmpty()) {
-            userForUpdate.setLogin(userDto.getLogin());
-        }
-        if (!userDto.getEmail().isEmpty()) {
-            userForUpdate.setEmail(userDto.getEmail());
-        }
+        setEmptyFieldOfUserForUpdate(userForUpdate, userDto);
 
         return userForUpdate;
-    }
-
-    @Transactional
-    public Optional<User> deleteUsers(Long id) {
-        return userRepository.deleteById(id);
-    }
-
-    @Transactional
-    public void deleteAllUsers() {
-        userRepository.deleteAll();
     }
 }
