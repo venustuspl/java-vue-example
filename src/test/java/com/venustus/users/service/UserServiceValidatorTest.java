@@ -16,26 +16,23 @@ class UserServiceValidatorTest {
     private final ValidationManager validationManager = mock(ValidationManager.class);
     private UserServiceValidator userServiceValidator;
     private UserDto userDto;
-    private ValidationResult validationNameResult;
-    private ValidationResult validationLastNameResult;
-    private ValidationResult validationLoginResult;
+    private ValidationResult validationTrueResult;
+    private ValidationResult validationFalseResult;
 
     @BeforeEach
     void setUp() {
         userServiceValidator = new UserServiceValidator(validationManager);
         userDto = new UserDto(1, "TestName", "TestLastName", "TestLogin", "test@email.pl");
-        validationNameResult = new ValidationResult(false, Collections.singletonList("Login contains word(s) which are not allowed in our service: kurde" +
-                ""));
-        validationLastNameResult = new ValidationResult(true, Collections.singletonList(""));
-        validationLoginResult = new ValidationResult(true, Collections.singletonList(""));
+        validationFalseResult = new ValidationResult(false, Collections.singletonList("Login contains word(s) which are not allowed in our service: kurde"));
+        validationTrueResult = new ValidationResult(true, Collections.singletonList(""));
     }
 
     @Test
     void shoulThrowErrorValidatingUserDto() {
         //given
-        when(validationManager.validate(userDto.getFirstName())).thenReturn(validationNameResult);
-        when(validationManager.validate(userDto.getLastName())).thenReturn(validationLastNameResult);
-        when(validationManager.validate(userDto.getLogin())).thenReturn(validationLoginResult);
+        when(validationManager.validate(userDto.getFirstName())).thenReturn(validationTrueResult);
+        when(validationManager.validate(userDto.getLastName())).thenReturn(validationTrueResult);
+        when(validationManager.validate(userDto.getLogin())).thenReturn(validationFalseResult);
 
         //when
         //then
