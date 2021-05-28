@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +29,7 @@ class UserServiceValidatorTest {
     }
 
     @Test
-    void shoulThrowErrorValidatingUserDto() {
+    void shouldThrowErrorValidatingUserDto() {
         //given
         when(validationManager.validate(userDto.getFirstName())).thenReturn(validationTrueResult);
         when(validationManager.validate(userDto.getLastName())).thenReturn(validationTrueResult);
@@ -39,5 +40,18 @@ class UserServiceValidatorTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> userServiceValidator.validateUserDto(userDto))
                 .withMessage("[[Login contains word(s) which are not allowed in our service: kurde]]");
+    }
+
+    @Test
+    void shouldNotThrowErrorValidatingUserDto() {
+        //given
+        when(validationManager.validate(userDto.getFirstName())).thenReturn(validationTrueResult);
+        when(validationManager.validate(userDto.getLastName())).thenReturn(validationTrueResult);
+        when(validationManager.validate(userDto.getLogin())).thenReturn(validationTrueResult);
+
+        //when
+        //then
+        assertThatCode(() -> userServiceValidator.validateUserDto(userDto))
+                .doesNotThrowAnyException();
     }
 }
