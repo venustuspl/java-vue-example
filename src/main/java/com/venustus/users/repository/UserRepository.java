@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RepositoryRestResource()
-public interface UserRepository extends JpaRepository<User, Integer>,
+public interface UserRepository extends JpaRepository<User, Long>,
         JpaSpecificationExecutor<User>, QuerydslPredicateExecutor<User> {
 
     @Query(value = "select * from user where email like %:email% order by email",
@@ -28,7 +28,5 @@ public interface UserRepository extends JpaRepository<User, Integer>,
 
     Optional<User> findByLogin(String login);
 
-    Optional<User> deleteById(Long id);
-
-    Optional<User> findById(long id);
+    Optional<User> deleteUserById(Long id);
 }

@@ -84,7 +84,7 @@ public class UserService {
 
     @Transactional
     public Optional<User> deleteUsers(Long id) {
-        return userRepository.deleteById(id);
+        return userRepository.deleteUserById(id);
     }
 
     @Transactional
@@ -97,10 +97,7 @@ public class UserService {
         String exeptionMessage = "";
         Long userForUpdateId = userDto.getId();
 
-        User userForUpdate = userRepository.findById(userDto.getId())
-                .orElseThrow(() ->
-                        new NoSuchElementException("The user with id " + userForUpdateId + " does not exist in DB")
-                );
+        User userForUpdate = getUserById(userDto.getId());
 
         userServiceValidator.validateUserDto(userDto);
 
@@ -117,5 +114,12 @@ public class UserService {
         setEmptyFieldOfUserForUpdate(userForUpdate, userDto);
 
         return userForUpdate;
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new NoSuchElementException("User with id " + userId + " does not exist in DB")
+                );
     }
 }
