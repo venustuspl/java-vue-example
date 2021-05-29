@@ -95,7 +95,6 @@ public class UserService {
     @Transactional
     public User updateUser(UserDto userDto) {
         String exeptionMessage = "";
-        Long userForUpdateId = userDto.getId();
 
         User userForUpdate = getUserById(userDto.getId());
 
