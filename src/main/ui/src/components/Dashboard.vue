@@ -155,8 +155,6 @@ export default {
                         }
                         this.getAllUsers();
                     });
-
-
                 }
     },
     mounted() {

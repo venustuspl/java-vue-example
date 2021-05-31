@@ -19,12 +19,12 @@
               <tr v-for="item in users" :key="item.id">
 
                   <td id="itemid" ><input type="text" disabled="disabled" v-model="userid" :placeholder=item.id @input="v.$touch()"></td>
-                  <td><input type="text" class="input" v-model="firstName" :placeholder=item.firstName  ></td>
-                  <td><input type="text" class="input" v-model="lastName" :placeholder=item.lastName ></td>
-                  <td><input type="text" class="input" v-model="login" :placeholder=item.login ></td>
-                  <td><input type="text" class="input" v-model="email" :placeholder=item.email > </td>
+                  <td><input type="text" class="input" v-model="item.firstName" :placeholder=item.firstName  ></td>
+                  <td><input type="text" class="input" v-model="item.lastName" :placeholder=item.lastName ></td>
+                  <td><input type="text" class="input" v-model="item.login" :placeholder=item.login ></td>
+                  <td><input type="text" class="input" v-model="item.email" :placeholder=item.email > </td>
                   <td><button id="deletebutton" type="button" @click='deleteUsers(item.id)'>Delete</button>
-                  <button id="updatebutton" type="button" @click='updateUsers(item.id)'>Update</button>
+                  <button id="updatebutton" type="button" @click='updateUsers(item.id, item.firstName, item.lastName, item.login, item.email)'>Update</button>
                   </td>
 
               </tr>
@@ -66,14 +66,14 @@ data(){
          users:{}
           },
           methods: {
-updateUsers(userid) {
+updateUsers(userid, firstName, lastName, login, email) {
           console.log(this.firstName)
            const payload = {
           id: userid,
-              firstName: this.firstName,
-              lastName: this.lastName,
-              login: this.login,
-              email: this.email
+              firstName: firstName,
+              lastName: lastName,
+              login: login,
+              email: email
           }
         console.log('start');
             updateUser(payload).then(response => {
