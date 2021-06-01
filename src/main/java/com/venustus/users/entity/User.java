@@ -3,11 +3,9 @@ package com.venustus.users.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +31,9 @@ public class User {
     @Column
     @NotNull(message = "{NotNull.User.email}")
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Address> addressList;
 
     public User() {
     }
